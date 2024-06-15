@@ -72,9 +72,7 @@ function Index() {
         </View>
       </ScrollView>
     </>
-
   )
-
 }
 
 export default Index

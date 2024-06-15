@@ -17,4 +17,41 @@ declare namespace NodeJS {
   }
 }
 
+declare namespace App {
+  interface ApiResp<T> {
+    success: boolean,
+    data: T,
+    errorMsg: string,
+  }
 
+  interface UserInfo {
+    id: number,
+    nickname: string,
+    avatar: string,
+    copperCoin: number,
+    silverCoin: number,
+    goldCoin: number,
+  }
+
+  interface MahjongRecordInfo {
+    type: MahjongRecordType,
+    recorderId: number,
+    recorderNmae: string,
+    recorderAvatar: string,
+    records: MahjongRecord[],
+    createTime: string,
+  }
+
+  interface MahjongRecord {
+    userId: number,
+    userName: string,
+    userAvatar: string,
+    score: number,
+  }
+
+  enum MahjongRecordType {
+    GAME,
+    SPORT,
+    AWARD,
+  }
+}
