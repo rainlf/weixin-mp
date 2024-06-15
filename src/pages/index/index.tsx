@@ -1,15 +1,22 @@
 import {useState} from 'react'
 import {Button, Image, Input, ScrollView, Text, View} from '@tarojs/components'
 import {AtButton} from 'taro-ui'
-import Taro from '@tarojs/taro'
+import Taro, {useReady} from '@tarojs/taro'
 
 import './index.scss'
+import {getCurrentUser} from "../../services/user";
 
 const defaultAvatar = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
 
 function Index() {
   const [avatarUrl, setAvatarUrl] = useState(defaultAvatar)
   const [nickname, setNickname] = useState('')
+
+  // useReady(() => {
+  //   getCurrentUser()
+  //     .then(resp => {
+  //     })
+  // })
 
 
   const handleChooseAvatar = (e: any) => {
