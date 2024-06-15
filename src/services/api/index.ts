@@ -12,7 +12,7 @@ interface Option {
 
 // 封装wx.request 为promise对象，方便同步调用，切面处理
 const request = (optain: {}): Promise<ApiResp<any>> => {
-  const token = wx.getStorageSync('token') || '';
+  const token = wx.getStorageSync('token') || ''
   const header: any = {
     'content-type': 'application/json',
     'Authorization': `Bearer ${token}` // 假设你使用Bearer token认证

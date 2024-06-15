@@ -7,6 +7,7 @@ function Index() {
   useLoad(() => {
     getCurrentUser()
       .then(resp => {
+        wx.setStorageSync('user', resp)
         if (isUserInited(resp)) {
           console.log('user is inited, show current page')
         } else {

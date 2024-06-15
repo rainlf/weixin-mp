@@ -5,6 +5,7 @@ import Taro, {useLoad} from '@tarojs/taro'
 
 import './index.scss'
 import {updateCurrentUser} from "../../services/user";
+import UserInfo = App.UserInfo;
 
 const defaultAvatar = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
 
@@ -13,7 +14,9 @@ function Index() {
   const [nickname, setNickname] = useState('')
 
   useLoad(() => {
-
+    const user: UserInfo = wx.getStorageSync('user')
+    setNickname(user.nickname)
+    setAvatarUrl(user.avatar)
   })
 
   const handleChooseAvatar = (e: any) => {
@@ -32,7 +35,8 @@ function Index() {
 
 
   const handleLogin = () => {
-    if (avatarUrl == defaultAvatar) {
+    console.log(avatarUrl)
+    if (avatarUrl == defaultAvatar || avatarUrl == '') {
       Taro.showToast({
         title: '请点击头像',
         icon: 'none',
@@ -49,6 +53,12 @@ function Index() {
       return
     }
     updateCurrentUser(nickname, avatarUrl)
+      .then((resp) => {
+        wx.setStorageSync('user', resp)
+        Taro.redirectTo({
+          url: '../index/index'
+        })
+      })
   }
 
   return (
