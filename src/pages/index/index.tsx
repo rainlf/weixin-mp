@@ -1,9 +1,12 @@
-import {Text, View} from "@tarojs/components";
+import {Button, Image, Input, Text, View} from "@tarojs/components";
 import Taro, {useLoad} from '@tarojs/taro'
 import {getCurrentUser} from "../../services/user";
 import UserInfo = App.UserInfo;
+import {AtButton} from "taro-ui";
 
-function Index() {
+import './index.scss'
+
+function Index2() {
   useLoad(() => {
     getCurrentUser()
       .then(resp => {
@@ -26,10 +29,10 @@ function Index() {
   return (
     <>
       <View className='container'>
-        <Text>asdfasdfs</Text>
+        <Text>asdfasdfasdf</Text>
       </View>
     </>
   )
 }
 
-export default Index
+export default Index2

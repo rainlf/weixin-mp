@@ -63,7 +63,7 @@ function Index() {
 
   return (
     <>
-      <View className='container'>
+      <View className='loginContainer'>
         <View className="userinfo">
           <Button className="avatarWrapper" open-type="chooseAvatar" onChooseAvatar={handleChooseAvatar}>
             <Image className="avatar" src={avatarUrl}></Image>
