@@ -1,29 +1,45 @@
-import { Component, PropsWithChildren } from 'react'
-import { View, Text } from '@tarojs/components'
-import { AtButton } from 'taro-ui'
+import {useState} from 'react'
+import {Button, Image, Input, Text, View} from '@tarojs/components'
 
 import "taro-ui/dist/style/components/button.scss" // 按需引入
 import './index.scss'
 
-export default class Index extends Component<PropsWithChildren> {
-  componentDidMount () { }
+function Index() {
+  const [avatarUrl, setAvatarUrl] = useState('https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0')
 
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
-  render () {
-    return (
-      <View className='index'>
-        <Text>Hello world!</Text>
-        <AtButton type='primary'>I need Taro UI</AtButton>
-        <Text>Taro UI 支持 Vue 了吗？</Text>
-        <AtButton type='primary' circle>支持2</AtButton>
-        <Text>共建？</Text>
-        <AtButton type='secondary' circle>来</AtButton>
-      </View>
-    )
+  const handleChooseAvatar = async (e: any) => {
+    console.log('rain', e)
+    const tempFilePath = e.detail.avatarUrl // 注意这里可能需要调整以匹配实际返回的数据结构
+    console.log('rain2', tempFilePath)
+    if (tempFilePath) {
+      setAvatarUrl(tempFilePath)
+    }
   }
+
+  const handleChooseNickname = async (e: any) => {
+    console.log('rain', e)
+    const tempFilePath = e.detail.avatarUrl // 注意这里可能需要调整以匹配实际返回的数据结构
+    console.log('rain2', tempFilePath)
+    if (tempFilePath) {
+      setAvatarUrl(tempFilePath)
+    }
+  }
+
+  return (
+    <View className='container'>
+      <View className="userinfo">
+        <Button className="avatarWrapper" open-type="chooseAvatar" onChooseAvatar={handleChooseAvatar}>
+          <Image className="avatar" src={avatarUrl}></Image>
+        </Button>
+        <View className="nicknameWrapper">
+          <Text className="nicknameLabel">昵称</Text>
+          <Input className="nicknameInput" type="nickname" placeholder="请输入昵称" onBlur={handleChooseNickname}/>
+        </View>
+      </View>
+
+    </View>
+  )
+
 }
+
+export default Index
