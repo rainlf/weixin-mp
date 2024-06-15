@@ -34,8 +34,9 @@ const request = (optain: {}): Promise<ApiResp<any>> => {
 
 // 切面处理
 const wx_request = async (option: Option): Promise<any> => {
+  console.log("api request", option)
   const resp = await request(option)
-  console.log('api resposne', resp)
+  console.log('api response', resp)
 
   // 统一错误显示
   if (resp.success) {

@@ -10,11 +10,9 @@ class App extends Component<PropsWithChildren> {
     // 登录
     wx.login({
       success: (res: any) => {
-        console.log('login code', res.code)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         login(res.code)
           .then((token: any) => {
-            console.log('login token', token)
             // token 埋入本地存储
             wx.setStorageSync('token', token)
           })

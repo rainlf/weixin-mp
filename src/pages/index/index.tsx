@@ -1,79 +1,32 @@
-import {useState, } from 'react'
-import {Button, Image, Input, ScrollView, Text, View} from '@tarojs/components'
-import {AtButton} from 'taro-ui'
-import Taro, {useReady, useLoad} from '@tarojs/taro'
-
-import './index.scss'
-import {getCurrentUser, updateCurrentUser} from "../../services/user";
-
-const defaultAvatar = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+import {Text, View} from "@tarojs/components";
+import Taro, {useLoad} from '@tarojs/taro'
+import {getCurrentUser} from "../../services/user";
+import UserInfo = App.UserInfo;
 
 function Index() {
-  const [avatarUrl, setAvatarUrl] = useState(defaultAvatar)
-  const [nickname, setNickname] = useState('')
-
   useLoad(() => {
     getCurrentUser()
       .then(resp => {
-        setNickname(resp.nickname)
-        setAvatarUrl(resp.avatar)
+        if (isUserInited(resp)) {
+          console.log('user is inited, show current page')
+        } else {
+          console.log('user is not inited, jump to login page')
+          Taro.redirectTo({
+            url: '../login/index'
+          })
+        }
       })
   })
 
-  const handleChooseAvatar = (e: any) => {
-    const avatarUrl = e.detail.avatarUrl // 注意这里可能需要调整以匹配实际返回的数据结构
-    if (avatarUrl) {
-      setAvatarUrl(avatarUrl)
-    }
-  }
-
-  const handleChooseNickname = (e: any) => {
-    const nickname = e.detail.value // 注意这里可能需要调整以匹配实际返回的数据结构
-    if (nickname) {
-      setNickname(nickname)
-    }
-  }
-
-
-  const handleLogin = () => {
-    if (avatarUrl == defaultAvatar) {
-      Taro.showToast({
-        title: '请点击头像',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
-    if (nickname == '') {
-      Taro.showToast({
-        title: '请输入昵称',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
-    updateCurrentUser(nickname, avatarUrl)
+  const isUserInited = (userInfo: UserInfo): boolean => {
+    return userInfo.nickname.length > 0 && userInfo.avatar.length > 0
   }
 
   return (
     <>
-      <ScrollView scrollY className="scrollarea">
-        <View className='container'>
-          <View className="userinfo">
-            <Button className="avatarWrapper" open-type="chooseAvatar" onChooseAvatar={handleChooseAvatar}>
-              <Image className="avatar" src={avatarUrl}></Image>
-            </Button>
-            <View className="nicknameWrapper">
-              <Text className="nicknameLabel">昵称</Text>
-              <Input className="nicknameInput" type="nickname" placeholder="请输入昵称" value={nickname}
-                     onInput={handleChooseNickname}/>
-            </View>
-          </View>
-          <View className="login">
-            <AtButton type='secondary' onClick={handleLogin}>登录</AtButton>
-          </View>
-        </View>
-      </ScrollView>
+      <View className='container'>
+        <Text>asdfasdfs</Text>
+      </View>
     </>
   )
 }
