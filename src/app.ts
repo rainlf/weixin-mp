@@ -6,15 +6,6 @@ import 'taro-ui/dist/style/index.scss' // 全局引入一次即可
 
 class App extends Component<PropsWithChildren> {
 
-  componentDidMount() {
-  }
-
-  componentDidShow() {
-  }
-
-  componentDidHide() {
-  }
-
   onLaunch() {
     // 登录
     wx.login({

@@ -11,5 +11,5 @@ export const getAllUser = (): Promise<ApiResp<UserInfo>[]> => {
 }
 
 export const updateCurrentUser = (nickname: string, avatar: string): Promise<ApiResp<UserInfo>> => {
-  return api.wx_post(`/api/user/all?nickname=${nickname}&avatar=${avatar}`, null)
+  return api.wx_post(`/api/user/current?nickname=${nickname}&avatar=${avatar}`, null)
 }
