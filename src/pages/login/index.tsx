@@ -10,13 +10,22 @@ import UserInfo = App.UserInfo;
 const defaultAvatar = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
 
 function Index() {
+  const [update, setUpdate] = useState(false)
   const [avatarUrl, setAvatarUrl] = useState(defaultAvatar)
   const [nickname, setNickname] = useState('')
 
-  useLoad(() => {
-    const user: UserInfo = wx.getStorageSync('user')
-    setNickname(user.nickname)
-    setAvatarUrl(user.avatar)
+  useLoad((options) => {
+    if (options.udpate) {
+      setUpdate(options.udpate)
+    }
+
+    const userInfo: UserInfo = wx.getStorageSync('user')
+    if (userInfo?.nickname) {
+      setNickname(userInfo?.nickname)
+    }
+    if (userInfo?.avatar) {
+      setAvatarUrl(userInfo?.avatar)
+    }
   })
 
   const handleChooseAvatar = (e: any) => {
@@ -55,8 +64,14 @@ function Index() {
     updateCurrentUser(nickname, avatarUrl)
       .then((resp) => {
         wx.setStorageSync('user', resp)
-        Taro.redirectTo({
-          url: '../index/index'
+        Taro.navigateTo({
+          url: '../index/index',
+          success: () => {
+            Taro.atMessage({
+              'message': '更新成功',
+              'type': 'success',
+            })
+          }
         })
       })
   }
@@ -75,7 +90,7 @@ function Index() {
           </View>
         </View>
         <View className="login">
-          <AtButton type='secondary' onClick={handleLogin}>登录</AtButton>
+          <AtButton type='secondary' onClick={handleLogin}>{update ? "更新" : "登录"}</AtButton>
         </View>
       </View>
     </>

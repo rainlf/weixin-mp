@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 200rpx 0;
+  padding: 200rrpx 0;
   box-sizing: border-box;
 }
 
@@ -18,30 +18,30 @@
 
 .avatarWrapper {
   padding: 0;
-  width: 56px !important;
-  border-radius: 8px;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  width: 56rpx !important;
+  border-radius: 8rpx;
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
 }
 
 .avatar {
   display: block;
-  width: 56px;
-  height: 56px;
+  width: 56rpx;
+  height: 56rpx;
 }
 
 .nicknameWrapper {
   display: flex;
   width: 100%;
-  padding: 16px;
+  padding: 16rpx;
   box-sizing: border-box;
-  border-top: .5px solid rgba(0, 0, 0, 0.1);
-  border-bottom: .5px solid rgba(0, 0, 0, 0.1);
+  border-top: .5rpx solid rgba(0, 0, 0, 0.1);
+  border-bottom: .5rpx solid rgba(0, 0, 0, 0.1);
   color: black;
 }
 
 .nicknameLabel {
-  width: 105px;
+  width: 105rpx;
 }
 
 .nicknameInput {
