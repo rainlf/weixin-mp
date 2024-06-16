@@ -1,7 +1,7 @@
 import {Image, Text, View} from "@tarojs/components";
 import Taro, {useLoad} from '@tarojs/taro'
 import {getCurrentUser} from "../../services/user";
-import {AtAvatar, AtButton, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
+import {AtAvatar, AtButton, AtCalendar, AtDivider, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
 
 import './index.scss'
 import {useState} from "react";
@@ -82,12 +82,17 @@ function Index() {
               <AtIcon value='chevron-right' size='10' color="gray"></AtIcon>
             </view>
           </View>
-          <View className='component'>
-            <AtButton type="primary" onClick={testOnClick}>
-              Test
-            </AtButton>
 
-          </View>
+          <AtDivider content='' />
+
+          <AtCalendar currentDate="2018/11/11" />
+
+          {/*<View className='component'>*/}
+          {/*  <AtButton type="primary" onClick={testOnClick}>*/}
+          {/*    Test*/}
+          {/*  </AtButton>*/}
+
+          {/*</View>*/}
         </View>
       }
     </>

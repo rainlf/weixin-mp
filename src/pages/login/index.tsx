@@ -74,7 +74,7 @@ function Index() {
           url: '../index/index',
           success: () => {
             Taro.atMessage({
-              'message': '更新成功',
+              'message': update ? "更新成功" : "登录成功",
               'type': 'success',
             })
           }
