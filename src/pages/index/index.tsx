@@ -7,8 +7,7 @@ import './index.scss'
 import {useState} from "react";
 
 import copperCoin from "../../assets/images/copper-coin.png"
-// import silverCoin from "../../assets/images/silver-coin.png"
-import silverCoin from "../../assets/images/银币.png"
+import silverCoin from "../../assets/images/silver-coin.png"
 import goldCoin from "../../assets/images/gold-coin.png"
 import UserInfo = App.UserInfo;
 
