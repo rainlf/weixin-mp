@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {Button, Image, Input, Text, View} from '@tarojs/components'
-import {AtButton} from 'taro-ui'
+import {AtAvatar, AtButton} from 'taro-ui'
 import Taro, {useLoad} from '@tarojs/taro'
 
 import './index.scss'
@@ -81,7 +81,7 @@ function Index() {
       <View className='loginContainer'>
         <View className="userinfo">
           <Button className="avatarWrapper" open-type="chooseAvatar" onChooseAvatar={handleChooseAvatar}>
-            <Image className="avatar" src={avatarUrl}></Image>
+            <AtAvatar className="avatar" image={avatarUrl}></AtAvatar>
           </Button>
           <View className="nicknameWrapper">
             <Text className="nicknameLabel">昵称</Text>
