@@ -103,14 +103,14 @@ function Index() {
             </view>
           </View>
 
-          <AtDivider height={1}/>
+          <AtDivider className="divider" height={1}/>
 
           <View className='component'>
             <AtGrid data={testData} mode={"rect"} hasBorder={false} columnNum={1}/>
 
-            <AtButton type="primary" onClick={testOnClick}>
-              Test
-            </AtButton>
+            {/*<AtButton type="primary" onClick={testOnClick}>*/}
+            {/*  Test*/}
+            {/*</AtButton>*/}
 
           </View>
         </View>
