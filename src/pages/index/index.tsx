@@ -21,7 +21,6 @@ function Index() {
       .then(userInfo => {
         if (isUserInited(userInfo)) {
           console.log('user is inited, show current page')
-          wx.setStorageSync('user', userInfo)
           setUserInfo(userInfo)
           setReady(true)
         } else {

@@ -1,10 +1,10 @@
 import {useState} from 'react'
-import {Button, Image, Input, Text, View} from '@tarojs/components'
+import {Button, Input, Text, View} from '@tarojs/components'
 import {AtAvatar, AtButton} from 'taro-ui'
 import Taro, {useLoad} from '@tarojs/taro'
 
 import './index.scss'
-import {updateCurrentUser} from "../../services/user";
+import {getCurrentUser, updateCurrentUser} from "../../services/user";
 import UserInfo = App.UserInfo;
 
 const defaultAvatar = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
@@ -19,13 +19,12 @@ function Index() {
       setUpdate(options.udpate)
     }
 
-    const userInfo: UserInfo = wx.getStorageSync('user')
-    if (userInfo?.nickname) {
-      setNickname(userInfo?.nickname)
-    }
-    if (userInfo?.avatar) {
-      setAvatarUrl(userInfo?.avatar)
-    }
+    // const userInfo: UserInfo = wx.getStorageSync('user')
+    getCurrentUser()
+      .then((userInfo: UserInfo) => {
+        setNickname(userInfo?.nickname)
+        setAvatarUrl(userInfo?.avatar)
+      })
   })
 
   const handleChooseAvatar = (e: any) => {
@@ -61,9 +60,16 @@ function Index() {
       })
       return
     }
+    if (nickname.length > 14) {
+      Taro.showToast({
+        title: '昵称太长了鸭',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
     updateCurrentUser(nickname, avatarUrl)
-      .then((resp) => {
-        wx.setStorageSync('user', resp)
+      .then(() => {
         Taro.navigateTo({
           url: '../index/index',
           success: () => {

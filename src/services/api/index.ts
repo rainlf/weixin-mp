@@ -1,7 +1,6 @@
 import ApiResp = App.ApiResp;
 
 const server: string = 'http://127.0.0.1:8080'
-
 // const server: string = 'https://mp.guanshantech.com'
 
 interface Option {
