@@ -6,12 +6,12 @@ import {AtAvatar, AtButton, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} f
 import './index.scss'
 import {useState} from "react";
 
-import copperCoinIcon from "../../assets/images/copper-coin.png"
-import silverCoinIcon from "../../assets/images/silver-coin.png"
-import goldCoinIcon from "../../assets/images/gold-coin.png"
-import mahjongIcon from "../../assets/images/mj.png"
-import calendarIcon from "../../assets/images/日历.png"
-import pointPointPointIcon from "../../assets/images/点点点.png"
+import copperCoinIcon from "../../assets/images/copperCoin.png"
+import silverCoinIcon from "../../assets/images/silverCoin.png"
+import goldCoinIcon from "../../assets/images/goldCoin.png"
+import mahjongIcon from "../../assets/images/mahjong.png"
+import calendarIcon from "../../assets/images/calender.png"
+import pointPointPointIcon from "../../assets/images/point.png"
 import UserInfo = App.UserInfo;
 
 function Index() {
@@ -106,7 +106,7 @@ function Index() {
           <AtDivider className="divider" height={1}/>
 
           <View className='component'>
-            <AtGrid data={testData} mode={"rect"} hasBorder={false} columnNum={1}/>
+            <AtGrid data={testData} mode={"rect"} hasBorder={false} columnNum={3}/>
 
             {/*<AtButton type="primary" onClick={testOnClick}>*/}
             {/*  Test*/}
