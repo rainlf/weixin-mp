@@ -1,14 +1,17 @@
 import {Image, Text, View} from "@tarojs/components";
 import Taro, {useLoad} from '@tarojs/taro'
 import {getCurrentUser} from "../../services/user";
-import {AtAvatar, AtButton, AtCalendar, AtDivider, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
+import {AtAvatar, AtButton, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
 
 import './index.scss'
 import {useState} from "react";
 
-import copperCoin from "../../assets/images/copper-coin.png"
-import silverCoin from "../../assets/images/silver-coin.png"
-import goldCoin from "../../assets/images/gold-coin.png"
+import copperCoinIcon from "../../assets/images/copper-coin.png"
+import silverCoinIcon from "../../assets/images/silver-coin.png"
+import goldCoinIcon from "../../assets/images/gold-coin.png"
+import mahjongIcon from "../../assets/images/mj.png"
+import calendarIcon from "../../assets/images/日历.png"
+import pointPointPointIcon from "../../assets/images/点点点.png"
 import UserInfo = App.UserInfo;
 
 function Index() {
@@ -50,6 +53,21 @@ function Index() {
     })
   }
 
+  const testData = [
+    {
+      image: calendarIcon,
+      value: '活动日历'
+    },
+    {
+      image: mahjongIcon,
+      value: '健身麻将'
+    },
+    {
+      image: pointPointPointIcon,
+      value: '敬请期待'
+    },
+  ]
+
   return (
     <>
       {
@@ -57,6 +75,7 @@ function Index() {
         <View className='container'>
           <AtMessage/>
           <AtNoticebar single marquee speed={50}>这是 NoticeBar 通告栏</AtNoticebar>
+
           <View className='userInfo'>
 
             <View className='avatarWrapper'>
@@ -68,31 +87,32 @@ function Index() {
                 <Text>{userInfo?.nickname}</Text>
               </view>
               <view className='asset'>
-                <Image className="coin" src={copperCoin}></Image>
+                <Image className="coin" src={copperCoinIcon}></Image>
                 <View className="coinNumber">
                   <text>{userInfo?.copperCoin}</text>
                 </View>
-                <Image className="coin" src={silverCoin}></Image>
+                <Image className="coin" src={silverCoinIcon}></Image>
                 <Text className="coinNumber">{userInfo?.silverCoin}</Text>
-                <Image className="coin" src={goldCoin}></Image>
+                <Image className="coin" src={goldCoinIcon}></Image>
                 <Text className="coinNumber">{userInfo?.goldCoin}</Text>
               </view>
             </View>
+
             <view className="updateButtonWrapper" onClick={handlUpdateButtonClick}>
               <AtIcon value='chevron-right' size='10' color="gray"></AtIcon>
             </view>
           </View>
 
-          <AtDivider content='' />
+          <AtDivider height={1}/>
 
-          <AtCalendar currentDate="2018/11/11" />
+          <View className='component'>
+            <AtGrid data={testData} mode={"rect"} hasBorder={false} columnNum={1}/>
 
-          {/*<View className='component'>*/}
-          {/*  <AtButton type="primary" onClick={testOnClick}>*/}
-          {/*    Test*/}
-          {/*  </AtButton>*/}
+            <AtButton type="primary" onClick={testOnClick}>
+              Test
+            </AtButton>
 
-          {/*</View>*/}
+          </View>
         </View>
       }
     </>
