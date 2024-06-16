@@ -53,7 +53,7 @@
     eslint-visitor-keys "^2.1.0"
     semver "^6.3.1"
 
-"@babel/generator@^7.24.7":
+"@babel/generator@^7.20.0", "@babel/generator@^7.24.7":
   version "7.24.7"
   resolved "https://registry.npmmirror.com/@babel/generator/-/generator-7.24.7.tgz#1654d01de20ad66b4b4d99c135471bc654c55e6d"
   integrity sha512-oipXieGC3i45Y1A41t4tAqpnEZWgB/lC6Ehh6+rOviR5XWpTtMmLN+fGjz9vOiNRt0p6RtO6DtD0pdU3vpqdSA==
@@ -269,7 +269,7 @@
     js-tokens "^4.0.0"
     picocolors "^1.0.0"
 
-"@babel/parser@^7.14.5", "@babel/parser@^7.23.0", "@babel/parser@^7.24.7":
+"@babel/parser@^7.14.5", "@babel/parser@^7.20.0", "@babel/parser@^7.23.0", "@babel/parser@^7.24.7":
   version "7.24.7"
   resolved "https://registry.npmmirror.com/@babel/parser/-/parser-7.24.7.tgz#9a5226f92f0c5c8ead550b750f5608e766c8ce85"
   integrity sha512-9uUYRm6OqQrCqQdG1iCBwBPZgN8ciDBro2nIOFaiRz1/BCxaI7CNvQbDHvsArAC7Tw9Hda/B3U+6ui9u4HWXPw==
@@ -1167,7 +1167,7 @@
     "@babel/parser" "^7.24.7"
     "@babel/types" "^7.24.7"
 
-"@babel/traverse@^7.14.5", "@babel/traverse@^7.23.2", "@babel/traverse@^7.24.7":
+"@babel/traverse@^7.14.5", "@babel/traverse@^7.20.0", "@babel/traverse@^7.23.2", "@babel/traverse@^7.24.7":
   version "7.24.7"
   resolved "https://registry.npmmirror.com/@babel/traverse/-/traverse-7.24.7.tgz#de2b900163fa741721ba382163fe46a936c40cf5"
   integrity sha512-yb65Ed5S/QAcewNPh0nZczy9JdYXkkAbIsEo+P7BE7yO3txAY30Y/oPa3QkQ5It3xVG2kpKMg9MsdxZaO31uKA==
@@ -1183,7 +1183,7 @@
     debug "^4.3.1"
     globals "^11.1.0"
 
-"@babel/types@^7.24.7", "@babel/types@^7.4.4":
+"@babel/types@^7.20.0", "@babel/types@^7.24.7", "@babel/types@^7.4.4":
   version "7.24.7"
   resolved "https://registry.npmmirror.com/@babel/types/-/types-7.24.7.tgz#6027fe12bc1aa724cd32ab113fb7f1988f1f66f2"
   integrity sha512-XEFXSlxiG5td2EJRe8vOmRbaXVgfcBlszKujvVmWIK/UpywWljQCfzAv3RQCGujWQ1RD4YYWEAqDXfuJiy8f5Q==
@@ -1895,6 +1895,19 @@
     acorn "^8.0.4"
     acorn-walk "^8.0.0"
     lodash "^4.17.21"
+
+"@tarojs/plugin-html@^3.6.32":
+  version "3.6.32"
+  resolved "https://registry.npmmirror.com/@tarojs/plugin-html/-/plugin-html-3.6.32.tgz#5e281d2a29aee828ef14f00b83cae21413e6d0ef"
+  integrity sha512-GkJvHcB+dZ6JC8JQhh7Vzb1FdM73stk+NqqKMds0ZZwLNtAWbK39rGxjJd4cEO3F335L49cpkYw4V1kP/12xgQ==
+  dependencies:
+    "@babel/generator" "^7.20.0"
+    "@babel/parser" "^7.20.0"
+    "@babel/traverse" "^7.20.0"
+    "@babel/types" "^7.20.0"
+    "@tarojs/runtime" "3.6.32"
+    "@tarojs/service" "3.6.32"
+    "@tarojs/shared" "3.6.32"
 
 "@tarojs/plugin-platform-alipay@3.6.32":
   version "3.6.32"
