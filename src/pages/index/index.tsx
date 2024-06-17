@@ -1,7 +1,7 @@
 import {Image, Text, View} from "@tarojs/components";
 import Taro, {useLoad} from '@tarojs/taro'
 import {getCurrentUser} from "../../services/user";
-import {AtAvatar, AtButton, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
+import {AtAvatar, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
 
 import './index.scss'
 import {useState} from "react";
@@ -13,6 +13,22 @@ import mahjongIcon from "../../assets/images/mahjong.png"
 import calendarIcon from "../../assets/images/calender.png"
 import pointPointPointIcon from "../../assets/images/point.png"
 import UserInfo = App.UserInfo;
+import {generateConstantsList} from "@tarojs/helper";
+
+const gridData = [
+  {
+    image: calendarIcon,
+    value: '活动日历'
+  },
+  {
+    image: mahjongIcon,
+    value: '健身麻将'
+  },
+  {
+    image: pointPointPointIcon,
+    value: '敬请期待'
+  },
+]
 
 function Index() {
   const [ready, setReady] = useState(false)
@@ -45,28 +61,21 @@ function Index() {
     })
   }
 
-  const testOnClick = (e: any) => {
-    console.log('rain', e)
-    Taro.atMessage({
-      'message': '消息通知',
-      'type': 'success',
-    })
+  const handleGridClick = (item: object, index: number) => {
+    console.log(`grid clicked, index: ${index}, item: ${item}`)
+    switch (index) {
+      case 0:
+        // Taro.redirectTo({
+        //   url: '../calendar/index'
+        // })
+        break;
+      case 1:
+        Taro.redirectTo({
+          url: '../mahjong/index'
+        })
+        break;
+    }
   }
-
-  const testData = [
-    {
-      image: calendarIcon,
-      value: '活动日历'
-    },
-    {
-      image: mahjongIcon,
-      value: '健身麻将'
-    },
-    {
-      image: pointPointPointIcon,
-      value: '敬请期待'
-    },
-  ]
 
   return (
     <>
@@ -106,7 +115,7 @@ function Index() {
           <AtDivider className="divider" height={1}/>
 
           <View className='component'>
-            <AtGrid data={testData} mode={"rect"} hasBorder={false} columnNum={3}/>
+            <AtGrid data={gridData} mode={"rect"} hasBorder={false} columnNum={3} onClick={handleGridClick}/>
 
             {/*<AtButton type="primary" onClick={testOnClick}>*/}
             {/*  Test*/}
