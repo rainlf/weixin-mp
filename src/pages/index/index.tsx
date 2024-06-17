@@ -13,7 +13,6 @@ import mahjongIcon from "../../assets/images/mahjong.png"
 import calendarIcon from "../../assets/images/calender.png"
 import pointPointPointIcon from "../../assets/images/point.png"
 import UserInfo = App.UserInfo;
-import {generateConstantsList} from "@tarojs/helper";
 
 const gridData = [
   {
@@ -39,11 +38,9 @@ function Index() {
     getCurrentUser()
       .then(userInfo => {
         if (isUserInited(userInfo)) {
-          console.log('user is inited, show current page')
           setUserInfo(userInfo)
           setReady(true)
         } else {
-          console.log('user is not inited, jump to login page')
           Taro.navigateTo({
             url: '../login/index'
           })
@@ -52,7 +49,11 @@ function Index() {
   })
 
   const isUserInited = (userInfo: UserInfo): boolean => {
-    return userInfo.nickname.length > 0 && userInfo.avatar.length > 0
+    return userInfo != null
+      && userInfo.nickname != null
+      && userInfo.avatar != null
+      && userInfo.nickname.length > 0
+      && userInfo.avatar.length > 0
   }
 
   const handlUpdateButtonClick = () => {

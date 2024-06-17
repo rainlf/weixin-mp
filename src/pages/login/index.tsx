@@ -19,7 +19,6 @@ function Index() {
       setUpdate(options.udpate)
     }
 
-    // const userInfo: UserInfo = wx.getStorageSync('user')
     getCurrentUser()
       .then((userInfo: UserInfo) => {
         setNickname(userInfo?.nickname)

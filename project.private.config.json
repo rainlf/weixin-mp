@@ -3,6 +3,7 @@
   "projectname": "weixin-mp",
   "setting": {
     "compileHotReLoad": true,
-    "skylineRenderEnable": false
+    "skylineRenderEnable": false,
+    "urlCheck": false
   }
 }
