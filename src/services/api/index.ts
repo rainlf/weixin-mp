@@ -33,9 +33,9 @@ const request = (optain: {}): Promise<ApiResp<any>> => {
 
 // 切面处理
 const wx_request = async (option: Option): Promise<any> => {
-  console.log("api request", option)
+  console.log("Request >>", option)
   const resp = await request(option)
-  console.log('api response', resp)
+  console.log('Response <<', resp)
 
   // 统一错误显示
   if (resp.success) {
@@ -67,7 +67,25 @@ const wx_post = (api: string, data: any): Promise<any> => {
   return wx_request(option)
 }
 
+/**
+ * 微信小程序登录，从微信服务端获取code
+ */
+const wx_login = (): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    wx.login({
+      success: (res: any) => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        resolve(res.code)
+      },
+      fail: (err: any) => {
+        reject(err)
+      }
+    })
+  })
+}
+
 export default {
   wx_get,
   wx_post,
+  wx_login,
 }

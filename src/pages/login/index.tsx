@@ -43,7 +43,7 @@ function Index() {
 
   const handleLogin = () => {
     console.log(avatarUrl)
-    if (avatarUrl == defaultAvatar || avatarUrl == '') {
+    if (avatarUrl == null || avatarUrl == defaultAvatar || avatarUrl == '') {
       Taro.showToast({
         title: '请点击头像',
         icon: 'none',
@@ -51,7 +51,7 @@ function Index() {
       })
       return
     }
-    if (nickname == '') {
+    if (nickname == null || nickname == '') {
       Taro.showToast({
         title: '请输入昵称',
         icon: 'none',

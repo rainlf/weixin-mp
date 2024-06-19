@@ -1,7 +1,7 @@
 import {Image, Text, View} from "@tarojs/components";
-import Taro, {useLoad} from '@tarojs/taro'
+import Taro, {useLoad, useReady} from '@tarojs/taro'
 import {getCurrentUser} from "../../services/user";
-import {AtAvatar, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
+import {AtAvatar, AtButton, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
 
 import './index.scss'
 import {useState} from "react";
@@ -30,7 +30,7 @@ const gridData = [
 ]
 
 function Index() {
-  const [ready, setReady] = useState(false)
+  const [ready, setReady] = useState(true)
   const [userInfo, setUserInfo] = useState<UserInfo>()
 
   // 加载获取用户信息，判断是否需要跳转登录页
@@ -66,16 +66,23 @@ function Index() {
     console.log(`grid clicked, index: ${index}, item: ${item}`)
     switch (index) {
       case 0:
-        // Taro.redirectTo({
+        // Taro.navigateTo({
         //   url: '../calendar/index'
         // })
         break;
       case 1:
-        Taro.redirectTo({
+        Taro.navigateTo({
           url: '../mahjong/index'
         })
         break;
     }
+  }
+
+  const testOnClick = () => {
+    Taro.atMessage({
+      'message': "Test成功",
+      'type': 'success',
+    })
   }
 
   return (
@@ -118,9 +125,9 @@ function Index() {
           <View className='component'>
             <AtGrid data={gridData} mode={"rect"} hasBorder={false} columnNum={3} onClick={handleGridClick}/>
 
-            {/*<AtButton type="primary" onClick={testOnClick}>*/}
-            {/*  Test*/}
-            {/*</AtButton>*/}
+            <AtButton type="primary" onClick={testOnClick}>
+              Test
+            </AtButton>
 
           </View>
         </View>
