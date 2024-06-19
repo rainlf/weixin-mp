@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {Button, Input, Text, View} from '@tarojs/components'
-import {AtAvatar, AtButton} from 'taro-ui'
+import {AtAvatar, AtButton, AtMessage} from 'taro-ui'
 import Taro, {useLoad} from '@tarojs/taro'
 
 import './index.scss'
@@ -69,7 +69,7 @@ function Index() {
     }
     updateCurrentUser(nickname, avatarUrl)
       .then(() => {
-        Taro.navigateTo({
+        Taro.redirectTo({
           url: '../index/index',
           success: () => {
             Taro.atMessage({
@@ -84,6 +84,7 @@ function Index() {
   return (
     <>
       <View className='loginContainer'>
+        <AtMessage/>
         <View className="userinfo">
           <Button className="avatarWrapper" open-type="chooseAvatar" onChooseAvatar={handleChooseAvatar}>
             <AtAvatar className="avatar" image={avatarUrl}></AtAvatar>

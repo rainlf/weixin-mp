@@ -1,5 +1,5 @@
 import {Image, Text, View} from "@tarojs/components";
-import Taro, {useLoad, useReady} from '@tarojs/taro'
+import Taro, {useLoad} from '@tarojs/taro'
 import {getCurrentUser} from "../../services/user";
 import {AtAvatar, AtButton, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
 
@@ -41,7 +41,7 @@ function Index() {
           setUserInfo(userInfo)
           setReady(true)
         } else {
-          Taro.navigateTo({
+          Taro.redirectTo({
             url: '../login/index'
           })
         }
