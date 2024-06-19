@@ -1,6 +1,7 @@
 import ApiResp = App.ApiResp;
 
 const server: string = 'http://127.0.0.1:8080'
+
 // const server: string = 'https://mp.guanshantech.com'
 
 interface Option {
@@ -45,7 +46,6 @@ const wx_request = async (option: Option): Promise<any> => {
       duration: 2000,
     });
   }
-
   return resp.data;
 }
 
@@ -63,7 +63,6 @@ const wx_post = (api: string, data: any): Promise<any> => {
     url: server + api,
     data,
   }
-
   return wx_request(option)
 }
 
@@ -84,8 +83,18 @@ const wx_login = (): Promise<string> => {
   })
 }
 
+const login = async (): Promise<void> => {
+  const code: string = await wx_login()
+  console.log("wx login code: ", code)
+
+  const token: string = await wx_post(`/api/auth/login?code=${code}`, null)
+  console.log("app login token: ", token)
+
+  wx.setStorageSync('token', token)
+}
+
 export default {
+  login,
   wx_get,
   wx_post,
-  wx_login,
 }

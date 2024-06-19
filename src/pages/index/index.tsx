@@ -35,6 +35,7 @@ function Index() {
 
   // 加载获取用户信息，判断是否需要跳转登录页
   useLoad(() => {
+    console.log("rain -------------------------rain -------------------------rain -------------------------rain -------------------------")
     getCurrentUser()
       .then(userInfo => {
         if (isUserInited(userInfo)) {
