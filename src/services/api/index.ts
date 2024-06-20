@@ -1,6 +1,6 @@
 import ApiResp = App.ApiResp;
 import envConfig from "../../env.config"
-import weixin from "../weixin";
+import weixinService from "../weixinService";
 
 const server = envConfig.server
 
@@ -41,11 +41,11 @@ const request = async (option: {}): Promise<ApiResp<any>> => {
 
     // send and await request
     console.log("Request >>", option)
-    const response: ApiResp<any> = await weixin.wxRequest({...option, ...header})
+    const response: ApiResp<any> = await weixinService.wxRequest({...option, ...header})
     console.log('Response <<', response)
 
     if (response.success) {
-        weixin.wxShowToast(response.errorMsg)
+        weixinService.wxShowToast(response.errorMsg)
     }
     return response.data
 }

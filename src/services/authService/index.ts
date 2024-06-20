@@ -1,8 +1,8 @@
 import api from "../api";
-import weixin from "../weixin";
+import weixinService from "../weixinService";
 
 const wxLogin = (): Promise<string> => {
-  return weixin.wxLogin()
+  return weixinService.wxLogin()
 }
 
 const appLogin = (code: string): Promise<string> => {
