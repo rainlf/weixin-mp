@@ -1,6 +1,6 @@
 import {Image, Text, View} from "@tarojs/components";
 import Taro, {useLoad} from '@tarojs/taro'
-import {getCurrentUser} from "../../services/user";
+import user from "../../services/user";
 import {AtAvatar, AtButton, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
 
 import './index.scss'
@@ -36,7 +36,7 @@ function Index() {
   // 加载获取用户信息，判断是否需要跳转登录页
   useLoad(() => {
     console.log("rain -------------------------rain -------------------------rain -------------------------rain -------------------------")
-    getCurrentUser()
+    user.getCurrentUser()
       .then(userInfo => {
         if (isUserInited(userInfo)) {
           setUserInfo(userInfo)

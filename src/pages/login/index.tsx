@@ -4,7 +4,7 @@ import {AtAvatar, AtButton, AtMessage} from 'taro-ui'
 import Taro, {useLoad} from '@tarojs/taro'
 
 import './index.scss'
-import {getCurrentUser, updateCurrentUser} from "../../services/user";
+import user from "../../services/user";
 import UserInfo = App.UserInfo;
 
 const defaultAvatar = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
@@ -19,7 +19,7 @@ function Index() {
       setUpdate(options.udpate)
     }
 
-    getCurrentUser()
+    user.getCurrentUser()
       .then((userInfo: UserInfo) => {
         setNickname(userInfo?.nickname)
         setAvatarUrl(userInfo?.avatar)
@@ -67,7 +67,7 @@ function Index() {
       })
       return
     }
-    updateCurrentUser(nickname, avatarUrl)
+    user.updateCurrentUser(nickname, avatarUrl)
       .then(() => {
         Taro.redirectTo({
           url: '../index/index',

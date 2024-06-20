@@ -1,100 +1,56 @@
 import ApiResp = App.ApiResp;
+import envConfig from "../../env.config"
+import weixin from "../weixin";
 
-const server: string = 'http://127.0.0.1:8080'
-
-// const server: string = 'https://mp.guanshantech.com'
+const server = envConfig.server
 
 interface Option {
-  method: 'GET' | 'POST',
-  url: string,
-  data?: any | undefined,
+    method: 'GET' | 'POST',
+    url: string,
+    data?: any | undefined,
 }
 
-// 封装wx.request 为promise对象，方便同步调用，切面处理
-const request = (optain: {}): Promise<ApiResp<any>> => {
-  const token = wx.getStorageSync('token') || ''
-  const header: any = {
-    'content-type': 'application/json',
-    'Authorization': `Bearer ${token}` // 假设你使用Bearer token认证
-  };
-
-  return new Promise((resolve, reject) => {
-    wx.request({
-      ...optain,
-      header,
-      success: (res: any) => {
-        resolve(res.data)
-      },
-      fail: (err: any) => {
-        reject(err)
-      },
-    })
-  })
+// 封装GET
+const sendGet = (api: string): Promise<any> => {
+    const option: Option = {
+        method: 'GET',
+        url: server + api,
+    }
+    return request(option)
 }
 
-// 切面处理
-const wx_request = async (option: Option): Promise<any> => {
-  console.log("Request >>", option)
-  const resp = await request(option)
-  console.log('Response <<', resp)
-
-  // 统一错误显示
-  if (resp.success) {
-    wx.showToast({
-      icon: 'none',
-      title: resp.errorMsg,
-      duration: 2000,
-    });
-  }
-  return resp.data;
+// 封装Post
+const sendPost = (api: string, data: any): Promise<any> => {
+    const option: Option = {
+        method: 'POST',
+        url: server + api,
+        data,
+    }
+    return request(option)
 }
 
-const wx_get = (api: string): Promise<any> => {
-  const option: Option = {
-    method: 'GET',
-    url: server + api,
-  }
-  return wx_request(option)
-}
+// 通信切面处理
+const request = async (option: {}): Promise<ApiResp<any>> => {
+    // get toekn
+    const token = "xxx"
+    // put token in Authorization header
+    const header: {} = {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${token}` // 假设你使用Bearer token认证
+    };
 
-const wx_post = (api: string, data: any): Promise<any> => {
-  const option: Option = {
-    method: 'POST',
-    url: server + api,
-    data,
-  }
-  return wx_request(option)
-}
+    // send and await request
+    console.log("Request >>", option)
+    const response: ApiResp<any> = await weixin.wxRequest({...option, ...header})
+    console.log('Response <<', response)
 
-/**
- * 微信小程序登录，从微信服务端获取code
- */
-const wx_login = (): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    wx.login({
-      success: (res: any) => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        resolve(res.code)
-      },
-      fail: (err: any) => {
-        reject(err)
-      }
-    })
-  })
-}
-
-const login = async (): Promise<void> => {
-  const code: string = await wx_login()
-  console.log("wx login code: ", code)
-
-  const token: string = await wx_post(`/api/auth/login?code=${code}`, null)
-  console.log("app login token: ", token)
-
-  wx.setStorageSync('token', token)
+    if (response.success) {
+        weixin.wxShowToast(response.errorMsg)
+    }
+    return response.data
 }
 
 export default {
-  login,
-  wx_get,
-  wx_post,
+    sendGet,
+    sendPost,
 }
