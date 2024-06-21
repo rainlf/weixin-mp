@@ -6,7 +6,7 @@ const wxRequest = (option: {}): Promise<any> => {
       {
         ...option,
         success: ((resp: any) => resolve(resp)),
-        fail: ((err: any) => reject(err)),
+        fail: ((err: any) =>  reject(err)),
       }
     )
   })
@@ -17,11 +17,11 @@ const wxLogin = (): Promise<any> => {
   return wx.login()
 }
 
-const wxShowToast = (message: string): void => {
+const wxShowToast = (title: string): void => {
   wx.showToast({
     icon: 'none',
-    title: message,
-    duration: 2000,
+    title,
+    duration: 3000,
   });
 }
 

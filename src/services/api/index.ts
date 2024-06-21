@@ -31,7 +31,7 @@ const sendPost = (api: string, data: any): Promise<any> => {
 }
 
 // 通信切面处理
-const request = async (option: {}): Promise<ApiResp<any>> => {
+const request = async (option: {}): Promise<any> => {
   // get toekn
   const token = store.getState().token.value
   // put token in Authorization header
@@ -41,15 +41,21 @@ const request = async (option: {}): Promise<ApiResp<any>> => {
   };
 
   // send and await request
-  console.log("Request >>", option)
-  const response: any = await weixinService.wxRequest({...option, header})
-  console.log('Response <<', response)
+  try {
+    console.log("Request >>", option)
+    const response: any = await weixinService.wxRequest({...option, header})
+    console.log('Response <<', response)
+    const apiResp: ApiResp<any> = response.data;
+    if (!apiResp.success) {
+      weixinService.wxShowToast(apiResp.errorMsg)
+    }
+    return apiResp.data
+  } catch (error) {
+    console.error("Error <<", error)
+    weixinService.wxShowToast('服务器正在迷路中，请稍后重试...')
 
-  const apiResp: ApiResp<any> = response.data;
-  if (apiResp.success) {
-    weixinService.wxShowToast(apiResp.errorMsg)
   }
-  return apiResp.data
+  return null
 }
 
 export default {
