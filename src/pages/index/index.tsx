@@ -7,15 +7,17 @@ import './index.scss'
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from 'react-redux'
 
-import copperCoinIcon from "../../assets/images/copperCoin.png"
-import silverCoinIcon from "../../assets/images/silverCoin.png"
-import goldCoinIcon from "../../assets/images/goldCoin.png"
-import mahjongIcon from "../../assets/images/mahjong.png"
-import calendarIcon from "../../assets/images/11-日历.png"
-import mangoIcon from "../../assets/images/mango.png"
-import eggIcon from "../../assets/images/egg.png"
-import sportIcon from "../../assets/images/sport.png"
-import pointPointPointIcon from "../../assets/images/point.png"
+import copperCoinIcon from "../../assets/images/铜币.png"
+import silverCoinIcon from "../../assets/images/银币.png"
+import goldCoinIcon from "../../assets/images/金币.png"
+
+import calendarIcon from "../../assets/images/插画日历.png"
+import mahjongIcon from "../../assets/images/麻将.png"
+import eggIcon from "../../assets/images/蛋.png"
+import mangoIcon from "../../assets/images/芒果.png"
+import sportIcon from "../../assets/images/运动.png"
+import pointPointPointIcon from "../../assets/images/点点点.png"
+
 import {setCurrentUser} from "../../store/currentUserSlice";
 import UserInfo = App.UserInfo;
 
