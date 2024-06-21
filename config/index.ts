@@ -51,7 +51,7 @@ const config = {
         }
       }
     },
-    debugReact: true
+    debugReact: false
   },
   h5: {
     publicPath: '/',

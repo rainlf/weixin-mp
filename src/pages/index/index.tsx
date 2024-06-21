@@ -1,7 +1,7 @@
 import {Image, Text, View} from "@tarojs/components";
 import Taro from '@tarojs/taro'
 import userService from "../../services/userService";
-import {AtAvatar, AtButton, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
+import {AtAvatar, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
 
 import './index.scss'
 import {useEffect, useState} from "react";
@@ -12,24 +12,12 @@ import silverCoinIcon from "../../assets/images/silverCoin.png"
 import goldCoinIcon from "../../assets/images/goldCoin.png"
 import mahjongIcon from "../../assets/images/mahjong.png"
 import calendarIcon from "../../assets/images/calender.png"
+import mangoIcon from "../../assets/images/mango.png"
+import eggIcon from "../../assets/images/egg.png"
+import sportIcon from "../../assets/images/sport.png"
 import pointPointPointIcon from "../../assets/images/point.png"
 import {setCurrentUser} from "../../store/currentUserSlice";
 import UserInfo = App.UserInfo;
-
-const gridData = [
-  {
-    image: calendarIcon,
-    value: '活动日历'
-  },
-  {
-    image: mahjongIcon,
-    value: '健身麻将'
-  },
-  {
-    image: pointPointPointIcon,
-    value: '敬请期待'
-  },
-]
 
 const Index = () => {
   const token: string = useSelector((state: any) => state.token.value)
@@ -82,27 +70,48 @@ const Index = () => {
     })
   }
 
+
+  const gridData = [
+    {
+      image: calendarIcon,
+      value: '芒芒日历'
+    },
+    {
+      image: mahjongIcon,
+      value: '敲敲敲麻'
+    },
+    {
+      image: eggIcon,
+      value: '掼蛋掼蛋'
+    },
+    {
+      image: mangoIcon,
+      value: '果果清单'
+    },
+    {
+      image: sportIcon,
+      value: '运动还债'
+    },
+    {
+      image: pointPointPointIcon,
+      value: '敬请期待'
+    },
+  ]
+
   const handleGridClick = (item: object, index: number) => {
-    console.log(`grid clicked, index: ${index}, item: ${item}`)
     switch (index) {
-      case 0:
-        // Taro.navigateTo({
-        //   url: '../calendar/index'
-        // })
-        break;
       case 1:
         Taro.navigateTo({
           url: '../mahjong/index'
         })
         break;
+      default:
+        Taro.atMessage({
+            'message': "程序员正在该来的路上...",
+            'type': 'success',
+          }
+        )
     }
-  }
-
-  const testOnClick = () => {
-    Taro.atMessage({
-      'message': "Test成功",
-      'type': 'success',
-    })
   }
 
   return (
@@ -143,12 +152,7 @@ const Index = () => {
           <AtDivider className="divider" height={1}/>
 
           <View className='component'>
-            <AtGrid data={gridData} mode={"rect"} hasBorder={false} columnNum={3} onClick={handleGridClick}/>
-
-            <AtButton type="primary" onClick={testOnClick}>
-              Test
-            </AtButton>
-
+            <AtGrid data={gridData} hasBorder={false} columnNum={3} onClick={handleGridClick}/>
           </View>
         </View>
       }
