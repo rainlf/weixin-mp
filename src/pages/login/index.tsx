@@ -61,7 +61,7 @@ function Index() {
     }
     if (nickname.length > 14) {
       Taro.showToast({
-        title: '昵称太长了鸭',
+        title: '昵称太长了捏🤏',
         icon: 'none',
         duration: 2000
       })

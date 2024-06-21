@@ -1,5 +1,5 @@
 import {Image, Text, View} from "@tarojs/components";
-import Taro, {useLoad} from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import userService from "../../services/userService";
 import {AtAvatar, AtButton, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
 
@@ -71,7 +71,14 @@ const Index = () => {
 
   const handlUpdateButtonClick = () => {
     Taro.redirectTo({
-      url: '../login/index?udpate=true'
+      url: '../login/index?udpate=true',
+      success: () => {
+        Taro.atMessage({
+            'message': "点击更新更新用户信息",
+            'type': 'success',
+          }
+        )
+      }
     })
   }
 
