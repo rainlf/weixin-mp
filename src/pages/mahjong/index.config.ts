@@ -1,3 +1,3 @@
 export default definePageConfig({
-  navigationBarTitleText: '健身麻将🀄️'
+  // navigationBarTitleText: '健身麻将🀄️'
 })

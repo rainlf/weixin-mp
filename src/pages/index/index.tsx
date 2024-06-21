@@ -19,6 +19,7 @@ import sportIcon from "../../assets/images/运动.png"
 import pointPointPointIcon from "../../assets/images/点点点.png"
 
 import {setCurrentUser} from "../../store/currentUserSlice";
+import {setUserList} from "../../store/userListSlice";
 import UserInfo = App.UserInfo;
 
 const Index = () => {
@@ -47,6 +48,12 @@ const Index = () => {
             }
           })
         }
+        const userList: UserInfo[] = await userService.getUserList()
+        dispatch(setUserList(userList))
+
+        Taro.navigateTo({
+          url: '../mahjong/index'
+        })
       }
     })();
   }, [token])
@@ -126,7 +133,6 @@ const Index = () => {
           <AtNoticebar single marquee speed={50}>这是 NoticeBar 通告栏</AtNoticebar>
 
           <View className='userInfo'>
-
             <View className='avatarWrapper'>
               <AtAvatar size="large" image={currentUser.avatar}></AtAvatar>
             </View>

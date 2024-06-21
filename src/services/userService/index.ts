@@ -5,8 +5,8 @@ const getCurrentUser = (): Promise<UserInfo> => {
   return api.sendGet(`/api/user/current`)
 }
 
-const getAllUser = (): Promise<UserInfo[]> => {
-  return api.sendGet(`/api/user/all`)
+const getUserList = (): Promise<UserInfo[]> => {
+  return api.sendGet(`/api/user/list`)
 }
 
 const updateCurrentUser = (nickname: string, avatar: string): Promise<UserInfo> => {
@@ -14,7 +14,7 @@ const updateCurrentUser = (nickname: string, avatar: string): Promise<UserInfo> 
 }
 
 export default {
-  getAllUser,
+  getUserList,
   getCurrentUser,
   updateCurrentUser,
 }
