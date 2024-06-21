@@ -11,7 +11,7 @@ import copperCoinIcon from "../../assets/images/copperCoin.png"
 import silverCoinIcon from "../../assets/images/silverCoin.png"
 import goldCoinIcon from "../../assets/images/goldCoin.png"
 import mahjongIcon from "../../assets/images/mahjong.png"
-import calendarIcon from "../../assets/images/calender.png"
+import calendarIcon from "../../assets/images/11-日历.png"
 import mangoIcon from "../../assets/images/mango.png"
 import eggIcon from "../../assets/images/egg.png"
 import sportIcon from "../../assets/images/sport.png"
@@ -74,31 +74,32 @@ const Index = () => {
   const gridData = [
     {
       image: calendarIcon,
-      value: '芒芒日历'
+      value: '芒芒日历🏗️'
     },
     {
       image: mahjongIcon,
-      value: '敲敲敲麻'
+      value: '敲敲麻麻'
     },
     {
       image: eggIcon,
-      value: '掼蛋掼蛋'
+      value: '掼蛋掼蛋🏗️'
     },
     {
       image: mangoIcon,
-      value: '果果清单'
+      value: '果果清单🏗️'
     },
     {
       image: sportIcon,
-      value: '运动还债'
+      value: '运动还债🏗️'
     },
     {
       image: pointPointPointIcon,
-      value: '敬请期待'
+      value: '敬请期待🏗️'
     },
   ]
 
   const handleGridClick = (item: object, index: number) => {
+    console.debug('handleGridClick, item', item)
     switch (index) {
       case 1:
         Taro.navigateTo({
@@ -107,7 +108,7 @@ const Index = () => {
         break;
       default:
         Taro.atMessage({
-            'message': "程序员正在该来的路上...",
+            'message': "建设中，程序员正在骑马赶来的路上...🐎",
             'type': 'success',
           }
         )
