@@ -1,13 +1,20 @@
 // 统一管理 wx 接口，Thanks for support of kunkun
-import ApiResp = App.ApiResp;
-
-const wxRequest = (option: {}): Promise<ApiResp<any>> => {
-  return wx.request({...option})
+// wx.reqeust 不支持以 Promise 风格 调用
+const wxRequest = (option: {}): Promise<any> => {
+  return new Promise((resolve, reject) => {
+    wx.request(
+      {
+        ...option,
+        success: ((resp: any) => resolve(resp)),
+        fail: ((err: any) => reject(err)),
+      }
+    )
+  })
 }
 
-const wxLogin = async (): Promise<string> => {
-  const res = await wx.login()
-  return res.code
+// wx.login 不支持以 Promise 风格 调用
+const wxLogin = (): Promise<any> => {
+  return wx.login()
 }
 
 const wxShowToast = (message: string): void => {

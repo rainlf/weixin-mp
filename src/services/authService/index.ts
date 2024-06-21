@@ -1,7 +1,7 @@
 import api from "../api";
 import weixinService from "../weixinService";
 
-const wxLogin = (): Promise<string> => {
+const wxLogin = (): Promise<any> => {
   return weixinService.wxLogin()
 }
 
