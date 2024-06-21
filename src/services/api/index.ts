@@ -1,4 +1,5 @@
 import ApiResp = App.ApiResp;
+import store from '../../store'
 import envConfig from "../../env.config"
 import weixinService from "../weixinService";
 
@@ -32,7 +33,7 @@ const sendPost = (api: string, data: any): Promise<any> => {
 // 通信切面处理
 const request = async (option: {}): Promise<ApiResp<any>> => {
   // get toekn
-  const token = "xxx"
+  const token = store.getState().token.value
   // put token in Authorization header
   const header: {} = {
     'content-type': 'application/json',

@@ -4,7 +4,8 @@ import userService from "../../services/userService";
 import {AtAvatar, AtButton, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} from 'taro-ui'
 
 import './index.scss'
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from 'react-redux'
 
 import copperCoinIcon from "../../assets/images/copperCoin.png"
 import silverCoinIcon from "../../assets/images/silverCoin.png"
@@ -12,6 +13,7 @@ import goldCoinIcon from "../../assets/images/goldCoin.png"
 import mahjongIcon from "../../assets/images/mahjong.png"
 import calendarIcon from "../../assets/images/calender.png"
 import pointPointPointIcon from "../../assets/images/point.png"
+import {setCurrentUser} from "../../store/currentUserSlice";
 import UserInfo = App.UserInfo;
 
 const gridData = [
@@ -29,26 +31,35 @@ const gridData = [
   },
 ]
 
-function Index() {
-  const [ready, setReady] = useState(true)
-  const [userInfo, setUserInfo] = useState<UserInfo>()
+const Index = () => {
+  const token: string = useSelector((state: any) => state.token.value)
+  const currentUser: UserInfo = useSelector((state: any) => state.currentUser.value)
+  const dispatch = useDispatch()
 
-  // 加载获取用户信息，判断是否需要跳转登录页
-  useLoad(() => {
-    console.log("index page >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    userService.getCurrentUser()
-      .then(userInfo => {
-        if (isUserInited(userInfo)) {
-          setUserInfo(userInfo)
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    (async () => {
+      if (token && token.length > 0) {
+        const user: UserInfo = await userService.getCurrentUser()
+        dispatch(setCurrentUser(user))
+        if (isUserInited(user)) {
           setReady(true)
         } else {
           Taro.redirectTo({
-            url: '../login/index'
+            url: '../login/index',
+            success: () => {
+              Taro.atMessage({
+                  'message': "请填写基础信息登录",
+                  'type': 'success',
+                }
+              )
+            }
           })
         }
-      })
-    console.log("index page <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-  })
+      }
+    })();
+  }, [token])
 
   const isUserInited = (userInfo: UserInfo): boolean => {
     return userInfo != null
@@ -98,22 +109,22 @@ function Index() {
           <View className='userInfo'>
 
             <View className='avatarWrapper'>
-              <AtAvatar size="large" image={userInfo?.avatar}></AtAvatar>
+              <AtAvatar size="large" image={currentUser.avatar}></AtAvatar>
             </View>
 
             <View className='detailWrapper'>
               <view className='nickname'>
-                <Text>{userInfo?.nickname}</Text>
+                <Text>{currentUser.nickname}</Text>
               </view>
               <view className='asset'>
                 <Image className="coin" src={copperCoinIcon}></Image>
                 <View className="coinNumber">
-                  <text>{userInfo?.copperCoin}</text>
+                  <text>{currentUser.copperCoin}</text>
                 </View>
                 <Image className="coin" src={silverCoinIcon}></Image>
-                <Text className="coinNumber">{userInfo?.silverCoin}</Text>
+                <Text className="coinNumber">{currentUser.silverCoin}</Text>
                 <Image className="coin" src={goldCoinIcon}></Image>
-                <Text className="coinNumber">{userInfo?.goldCoin}</Text>
+                <Text className="coinNumber">{currentUser.goldCoin}</Text>
               </view>
             </View>
 
