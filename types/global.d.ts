@@ -33,25 +33,19 @@ declare namespace App {
     goldCoin: number,
   }
 
-  interface MahjongRecordInfo {
-    type: MahjongRecordType,
+  interface MahjongRoundInfo {
     recorderId: number,
-    recorderNmae: string,
-    recorderAvatar: string,
-    records: MahjongRecord[],
-    createTime: string,
+    winerIds: number[],
+    loserIds: number[],
+    winerCase: number,
+    baseFan: number,
+    fanList: number[],
   }
 
-  interface MahjongRecord {
+  interface MahjongRoundLog {
     userId: number,
     userName: string,
     userAvatar: string,
     score: number,
-  }
-
-  enum MahjongRecordType {
-    GAME,
-    SPORT,
-    AWARD,
   }
 }

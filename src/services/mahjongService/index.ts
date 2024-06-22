@@ -1,23 +1,24 @@
 import api from '../api'
 import store from "../../store";
 import {setPlayerIds} from "../../store/mahjongSlice";
-import MahjongRecordInfo = App.MahjongRecordInfo;
+import MahjongRoundInfo = App.MahjongRoundInfo;
 
 const getPlayUserIdList = async () => {
   const playUserIdList = await api.sendGet(`/api/mahjong/palyer/ids`)
   store.dispatch(setPlayerIds(playUserIdList))
+  return playUserIdList
 }
 
 const addPalyUser = (id: number) => {
-  api.sendPost(`/api/mahjong/palyer?id=${id}`, null)
+  return api.sendPost(`/api/mahjong/palyer?id=${id}`, null)
 }
 
 const deletePlayUser = (id: number) => {
-  api.sendDelete(`/api/mahjong/palyer?id=${id}`, null)
+  return api.sendDelete(`/api/mahjong/palyer?id=${id}`, null)
 }
 
-const saveRecord = (record: MahjongRecordInfo) => {
-  api.sendPost(`/api/mahjong/reocrd`, record)
+const saveMahjongRoundInfo = (roundInfo: MahjongRoundInfo) => {
+  return api.sendPost(`/api/mahjong/round`, roundInfo)
 }
 
 // const getRecords = async (pageNumber: number, pageSize: number): Promise<MahjongRecordInfo[]> => {
@@ -28,7 +29,7 @@ export default {
   getPlayUserIdList,
   addPalyUser,
   deletePlayUser,
-  saveRecord,
+  saveMahjongRoundInfo,
   // getRecords,
 }
 

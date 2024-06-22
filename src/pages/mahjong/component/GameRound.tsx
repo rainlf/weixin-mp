@@ -228,24 +228,27 @@ const GameRound = ({setShowDrawer}: {
     }
 
     const selectWinerCase = selectWinerCaseList[0]
+    let winerIds: number[] = [];
+    let loserIds: number[] = [];
     if (selectWinerCase.name == WinerCaseEnum.MJ_COMMON_WIN) {
-      const winerList = palyUserList.filter(x => x.status == PlayUserStatus.WIN)
-      const loserList = palyUserList.filter(x => x.status == PlayUserStatus.LOSE)
-      if (winerList.length != 1 || loserList.length != 1) {
+      winerIds = palyUserList.filter(x => x.status == PlayUserStatus.WIN).map(x => x.id)
+      loserIds = palyUserList.filter(x => x.status == PlayUserStatus.LOSE).map(x => x.id)
+      if (winerIds.length != 1 || loserIds.length != 1) {
         Taro.atMessage({
           'message': "胡牌，要1赢1输哦",
           'type': 'warning',
         })
         return
       }
+
     }
 
     if (selectWinerCase.name == WinerCaseEnum.MJ_SELF_TOUCH_WIN) {
-      const winerList = palyUserList.filter(x => x.status == PlayUserStatus.WIN)
-      const loserList = palyUserList.filter(x => x.status != PlayUserStatus.WIN)
-      if (winerList.length != 1 || loserList.length != 3) {
+      winerIds = palyUserList.filter(x => x.status == PlayUserStatus.WIN).map(x => x.id)
+      loserIds = palyUserList.filter(x => x.status != PlayUserStatus.WIN).map(x => x.id)
+      if (winerIds.length != 1 || loserIds.length != 3) {
         Taro.atMessage({
-          'message': "自摸，要选定赢家哦",
+          'message': "自摸，要选定1个赢家哦",
           'type': 'warning',
         })
         return
@@ -253,9 +256,9 @@ const GameRound = ({setShowDrawer}: {
     }
 
     if (selectWinerCase.name == WinerCaseEnum.MJ_ONE_PAO_DOUBLE_WIN) {
-      const winerList = palyUserList.filter(x => x.status == PlayUserStatus.WIN)
-      const loserList = palyUserList.filter(x => x.status == PlayUserStatus.LOSE)
-      if (winerList.length != 2 || loserList.length != 1) {
+      winerIds = palyUserList.filter(x => x.status == PlayUserStatus.WIN).map(x => x.id)
+      loserIds = palyUserList.filter(x => x.status == PlayUserStatus.LOSE).map(x => x.id)
+      if (winerIds.length != 2 || loserIds.length != 1) {
         Taro.atMessage({
           'message': "一炮双响，要2赢1输哦",
           'type': 'warning',
@@ -265,19 +268,35 @@ const GameRound = ({setShowDrawer}: {
     }
 
     if (selectWinerCase.name == WinerCaseEnum.MJ_ONE_PAO_TRIPLE_WIN) {
-      const winerList = palyUserList.filter(x => x.status != PlayUserStatus.LOSE)
-      const loserList = palyUserList.filter(x => x.status == PlayUserStatus.LOSE)
-      if (winerList.length != 3 || loserList.length != 1) {
+      winerIds = palyUserList.filter(x => x.status != PlayUserStatus.LOSE).map(x => x.id)
+      loserIds = palyUserList.filter(x => x.status == PlayUserStatus.LOSE).map(x => x.id)
+      if (winerIds.length != 3 || loserIds.length != 1) {
         Taro.atMessage({
-          'message': "一炮三响，要选定输家哦",
+          'message': "一炮三响，要选定1个输家哦",
           'type': 'warning',
         })
         return
       }
     }
 
+    const roundInfo = {
+      recorderId: user.id,
+      winerIds,
+      loserIds,
+      winerCase: selectWinerCase.name,
+      baseFan,
+      fanList: fanList.map(x => x.name),
+    }
+    console.log('rain ', roundInfo)
 
-
+    mahjongService.saveMahjongRoundInfo(roundInfo)
+      .then(() => {
+          Taro.atMessage({
+            'message': "保存成功",
+            'type': 'info',
+          })
+        }
+      )
   }
 
   return <>
