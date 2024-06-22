@@ -76,7 +76,6 @@ const GameRound = ({setShowDrawer}: {
           status: 0,
         }
       ))
-    console.log('rain 2', initPlayUserList)
     setPlayUserList(initPlayUserList)
   }, [userList, playerIdList])
 
@@ -140,15 +139,6 @@ const GameRound = ({setShowDrawer}: {
 
   const handlePlayUserClick = (event: any) => {
     const userId = event.name
-    console.log('rain, ', userId)
-    console.log('rain, 2', (palyUserList.map(x => {
-        return (x.id == userId) ? {
-          ...x,
-          status: x.status + 1 < 3 ? x.status + 1 : 0
-        } : x
-      }
-    )))
-
     setPlayUserList(palyUserList.map(x => {
         return (x.id == userId) ? {
           ...x,
@@ -171,11 +161,18 @@ const GameRound = ({setShowDrawer}: {
   }
 
   const handleSaveGameRound = () => {
-    console.log('rain 1', gameUserList)
+    console.log('rain 1', palyUserList)
     console.log('rain 2', winerCaseList)
     console.log('rain 3', fanList)
     console.log('rain 4', baseFan)
     console.log('rain 5', user)
+
+    if (baseFan == 0) {
+      Taro.atMessage({
+        'message': "请选择基础积分",
+        'type': 'warning',
+      })
+    }
 
   }
 
