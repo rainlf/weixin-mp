@@ -8,21 +8,48 @@ import Taro from "@tarojs/taro";
 import mahjongService from "../../../services/mahjongService";
 import UserInfo = App.UserInfo;
 
+interface WinerCase {
+  name: WinerCaseEnum,
+  value: string,
+  click: boolean
+}
 
-const initWinerCaseList: any[] = [
-  {name: 0, value: "胡牌", click: true},
-  {name: 1, value: "自摸", click: false},
-  {name: 2, value: "一炮双响", click: false},
-  {name: 3, value: "一炮三响", click: false},
+enum WinerCaseEnum {
+  MJ_COMMON_WIN,
+  MJ_SELF_TOUCH_WIN,
+  MJ_ONE_PAO_DOUBLE_WIN,
+  MJ_ONE_PAO_TRIPLE_WIN,
+}
+
+const initWinerCaseList: WinerCase[] = [
+  {name: WinerCaseEnum.MJ_COMMON_WIN, value: "胡牌", click: true},
+  {name: WinerCaseEnum.MJ_SELF_TOUCH_WIN, value: "自摸", click: false},
+  {name: WinerCaseEnum.MJ_ONE_PAO_DOUBLE_WIN, value: "一炮双响", click: false},
+  {name: WinerCaseEnum.MJ_ONE_PAO_TRIPLE_WIN, value: "一炮三响", click: false},
 ]
 
-const initFanList: any[] = [
-  {name: 0, value: "门清", click: false},
-  {name: 1, value: "碰碰胡", click: false},
-  {name: 2, value: "清一色", click: false},
-  {name: 3, value: "大吊车", click: false},
-  {name: 4, value: "七小对", click: false},
-  {name: 5, value: "杠开", click: false},
+enum FanEnum {
+  MJ_DOOR_CLEAN_FAN,
+  MJ_PENG_PENG_FAN,
+  MJ_SAME_COLOR_FAN,
+  MJ_BIG_CRANE_FAN,
+  MJ_SEVEN_PAIR_FAN,
+  MJ_FLOWER_OPEN_FAN,
+}
+
+interface Fan {
+  name: FanEnum,
+  value: string,
+  click: boolean
+}
+
+const initFanList: Fan[] = [
+  {name: FanEnum.MJ_DOOR_CLEAN_FAN, value: "门清", click: false},
+  {name: FanEnum.MJ_PENG_PENG_FAN, value: "碰碰胡", click: false},
+  {name: FanEnum.MJ_SAME_COLOR_FAN, value: "清一色", click: false},
+  {name: FanEnum.MJ_BIG_CRANE_FAN, value: "大吊车", click: false},
+  {name: FanEnum.MJ_SEVEN_PAIR_FAN, value: "七小对", click: false},
+  {name: FanEnum.MJ_FLOWER_OPEN_FAN, value: "杠开", click: false},
 ]
 
 interface GameUser {
@@ -34,6 +61,12 @@ interface PlayUser {
   id: number,
   name: string,
   status: number,
+}
+
+enum PlayUserStatus {
+  BASE,
+  WIN,
+  LOSE,
 }
 
 const playUserColorMap = {
@@ -92,7 +125,7 @@ const GameRound = ({setShowDrawer}: {
   }, [baseFan, fanList, winerCaseList])
 
   const handleWinerCaseClick = (event: any) => {
-    const currentList = winerCaseList.map(x => x.name === event.name ? {
+    const currentList = winerCaseList.map(x => x.name == event.name ? {
       ...x,
       click: !x.click,
     } : {
@@ -100,7 +133,7 @@ const GameRound = ({setShowDrawer}: {
       click: false,
     })
 
-    if (currentList.every(x => x.click === false)) {
+    if (currentList.every(x => !x.click)) {
       setWinerCaseList(initWinerCaseList)
     } else {
       setWinerCaseList(currentList)
@@ -108,7 +141,7 @@ const GameRound = ({setShowDrawer}: {
   }
 
   const handleFanListClick = (event: any) => {
-    setFanList(fanList.map(x => x.name === event.name ? {
+    setFanList(fanList.map(x => x.name == event.name ? {
       ...x,
       click: !x.click,
     } : x))
@@ -167,12 +200,83 @@ const GameRound = ({setShowDrawer}: {
     console.log('rain 4', baseFan)
     console.log('rain 5', user)
 
+    if (palyUserList.length != 4) {
+      Taro.atMessage({
+        'message': "场上玩家要有4人哦",
+        'type': 'warning',
+      })
+      return
+    }
+
     if (baseFan == 0) {
       Taro.atMessage({
         'message': "请选择基础积分",
         'type': 'warning',
       })
+      return
     }
+
+    const selectWinerCaseList = winerCaseList.filter(x => x.click)
+    if (selectWinerCaseList.length != 1) {
+      if (baseFan == 0) {
+        Taro.atMessage({
+          'message': "只能选择一种和牌类型哦",
+          'type': 'warning',
+        })
+        return
+      }
+    }
+
+    const selectWinerCase = selectWinerCaseList[0]
+    if (selectWinerCase.name == WinerCaseEnum.MJ_COMMON_WIN) {
+      const winerList = palyUserList.filter(x => x.status == PlayUserStatus.WIN)
+      const loserList = palyUserList.filter(x => x.status == PlayUserStatus.LOSE)
+      if (winerList.length != 1 || loserList.length != 1) {
+        Taro.atMessage({
+          'message': "胡牌，要1赢1输哦",
+          'type': 'warning',
+        })
+        return
+      }
+    }
+
+    if (selectWinerCase.name == WinerCaseEnum.MJ_SELF_TOUCH_WIN) {
+      const winerList = palyUserList.filter(x => x.status == PlayUserStatus.WIN)
+      const loserList = palyUserList.filter(x => x.status != PlayUserStatus.WIN)
+      if (winerList.length != 1 || loserList.length != 3) {
+        Taro.atMessage({
+          'message': "自摸，要选定赢家哦",
+          'type': 'warning',
+        })
+        return
+      }
+    }
+
+    if (selectWinerCase.name == WinerCaseEnum.MJ_ONE_PAO_DOUBLE_WIN) {
+      const winerList = palyUserList.filter(x => x.status == PlayUserStatus.WIN)
+      const loserList = palyUserList.filter(x => x.status == PlayUserStatus.LOSE)
+      if (winerList.length != 2 || loserList.length != 1) {
+        Taro.atMessage({
+          'message': "一炮双响，要2赢1输哦",
+          'type': 'warning',
+        })
+        return
+      }
+    }
+
+    if (selectWinerCase.name == WinerCaseEnum.MJ_ONE_PAO_TRIPLE_WIN) {
+      const winerList = palyUserList.filter(x => x.status != PlayUserStatus.LOSE)
+      const loserList = palyUserList.filter(x => x.status == PlayUserStatus.LOSE)
+      if (winerList.length != 3 || loserList.length != 1) {
+        Taro.atMessage({
+          'message': "一炮三响，要选定输家哦",
+          'type': 'warning',
+        })
+        return
+      }
+    }
+
+
 
   }
 
@@ -225,7 +329,7 @@ const GameRound = ({setShowDrawer}: {
       <View className={'tagList'}>
         {
           winerCaseList.map(x =>
-            <AtTag className={'tag'} circle name={x.name} active={x.click} onClick={handleWinerCaseClick}>
+            <AtTag className={'tag'} circle name={x.name + ''} active={x.click} onClick={handleWinerCaseClick}>
               {x.value}
             </AtTag>
           )
@@ -237,7 +341,7 @@ const GameRound = ({setShowDrawer}: {
       <View className={'tagList'}>
         {
           fanList.map(x =>
-            <AtTag className={'tag'} circle name={x.name} active={x.click} onClick={handleFanListClick}>
+            <AtTag className={'tag'} circle name={x.name + ''} active={x.click} onClick={handleFanListClick}>
               {x.value}
             </AtTag>
           )
