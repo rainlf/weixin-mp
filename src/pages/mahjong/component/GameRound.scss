@@ -1,4 +1,8 @@
 .gameRoundContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 20rpx;
 }
 
 .title {
@@ -7,13 +11,34 @@
   color: coral;
 }
 
-.tagList {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+.userList {
+  flex: 1;
   border-bottom: 1rpx #F0F0F0 solid;
   margin-bottom: 20rpx;
 }
+
+.gameUserList {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1rpx #F0F0F0 solid;
+  margin-bottom: 20rpx;
+}
+
+.winerTag {
+  color: coral;
+}
+
+.loserTag {
+  color: lightgreen;
+}
+
+.tagList {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1rpx #F0F0F0 solid;
+  margin-bottom: 20rpx;
+}
+
 
 .tag {
   margin-left: 20rpx;
@@ -23,4 +48,18 @@
 .numberSliderTitle {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0;
+}
+
+.numberSlider {
+  margin-bottom: 20rpx;
+}
+
+.bottomButton {
+  display: flex;
+  flex-direction: row;
+}
+
+.button {
+  width: 50%;
 }

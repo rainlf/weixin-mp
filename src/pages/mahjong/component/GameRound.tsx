@@ -1,10 +1,10 @@
 import {Text, View} from "@tarojs/components";
 
 import './GameRound.scss'
-import {AtGrid, AtSlider, AtTag} from "taro-ui";
+import {AtButton, AtSlider, AtTag} from "taro-ui";
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {AtGridItem} from "taro-ui/types/grid";
+import Taro from "@tarojs/taro";
 import UserInfo = App.UserInfo;
 
 
@@ -24,23 +24,35 @@ const initFanList: any[] = [
   {name: 5, value: "杠开", click: false},
 ]
 
+interface GameUser {
+  id: string,
+  name: string,
+  win: boolean,
+  lose: boolean,
+  click: boolean,
+}
+
 const GameRound = () => {
   const userList: UserInfo[] = useSelector((state: any) => state.userList.value)
 
-  const [gridData, setGridData] = useState<AtGridItem[]>([])
   const [winerCaseList, setWinerCaseList] = useState(initWinerCaseList)
   const [fanList, setFanList] = useState(initFanList)
   const [baseFan, setBaseFan] = useState(0)
   const [totalFan, setTotalFan] = useState(0)
+  const [gameUserList, setGameUserList] = useState<GameUser[]>([])
+  const [palyUserList, setPlayUserList] = useState<GameUser[]>([])
 
   useEffect(() => {
-    const rainxx: AtGridItem[] = userList.map(user => (
+    const initGameUserList: GameUser[] = userList.map(user => (
       {
-        value: user.nickname,
-        image: user.avatar
+        id: user.id + '',
+        name: user.nickname,
+        win: false,
+        lose: false,
+        click: false,
       }
     ))
-    setGridData(rainxx)
+    setGameUserList(initGameUserList)
   }, [userList])
 
   useEffect(() => {
@@ -78,19 +90,83 @@ const GameRound = () => {
     } : x))
   }
 
+  const handleGameUserClick = (event: any) => {
+    if (palyUserList.length >= 4) {
+      Taro.atMessage({
+        'message': "牌桌已满，长按玩家赶下牌桌",
+        'type': 'info',
+      })
+      return
+    }
+
+    const userId = event.name
+    const selectUser = gameUserList.filter(x => x.id === userId)[0]
+    setGameUserList(gameUserList.filter(x => x.id !== selectUser.id))
+    setPlayUserList([
+      ...palyUserList,
+      {
+        ...selectUser,
+        click: true
+      }
+    ])
+  }
+
+  const handlePlayUserClick = (event) => {
+    console.log('rain', event.name)
+  }
+
+  const handleGameUserLongPress = (event: any) => {
+    console.log(event)
+    console.log(event.currentTarget.id)
+  }
+
   return <>
     <View className={'gameRoundContainer'}>
+      <View className={'title'}>
+        <Text>{"玩家"}</Text>
+      </View>
       <View className={'userList'}>
-        <AtGrid data={gridData} mode={'rect'} columnNum={3}/>
+        {
+          gameUserList.map(x =>
+            <AtTag className={'tag'} circle name={x.id} active={x.click} onClick={handleGameUserClick}>
+              {x.name}
+            </AtTag>
+          )
+        }
       </View>
       <View className={'title'}>
-        <Text>{"赢家"}</Text>
+        <Text>{"场上玩家"}</Text>
+      </View>
+      <View className={'gameUserList'}>
+        {
+          palyUserList.length === 0 ?
+            (
+              <>
+                <AtTag className={'tag'}>
+                  {'暂无玩家'}
+                </AtTag>
+              </>
+            ) :
+            (
+              palyUserList.map(x =>
+                <View id={x.id} onLongPress={handleGameUserLongPress}>
+                  <AtTag className={'tag'} name={x.id} active={x.click} onClick={handlePlayUserClick}>
+                    {x.name}
+                  </AtTag>
+                </View>
+              )
+            )
+        }
+      </View>
+      <View className={'title'}>
+        <Text>{"和牌"}</Text>
       </View>
       <View className={'tagList'}>
         {
           winerCaseList.map(x =>
-            <AtTag className={'tag'} circle name={x.name} active={x.click}
-                   onClick={handleWinerCaseClick}>{x.value}</AtTag>
+            <AtTag className={'tag'} circle name={x.name} active={x.click} onClick={handleWinerCaseClick}>
+              {x.value}
+            </AtTag>
           )
         }
       </View>
@@ -100,8 +176,9 @@ const GameRound = () => {
       <View className={'tagList'}>
         {
           fanList.map(x =>
-            <AtTag className={'tag'} circle name={x.name} active={x.click}
-                   onClick={handleFanListClick}>{x.value}</AtTag>
+            <AtTag className={'tag'} circle name={x.name} active={x.click} onClick={handleFanListClick}>
+              {x.value}
+            </AtTag>
           )
         }
       </View>
@@ -115,6 +192,10 @@ const GameRound = () => {
                   blockColor='#78A4F4' blockSize={20}
                   onChange={(number) => setBaseFan(number)}>
         </AtSlider>
+      </View>
+      <View className={'bottomButton'}>
+        <AtButton className={'button'} type={'secondary'}>取消</AtButton>
+        <AtButton className={'button'} type={'primary'}>确认</AtButton>
       </View>
     </View>
   </>
