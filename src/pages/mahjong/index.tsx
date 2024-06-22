@@ -5,10 +5,9 @@ import {AtButton, AtMessage, AtTabs, AtTabsPane} from "taro-ui";
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import TopUserInfo, {TopUserType} from "./component/TopUserInfo";
-import Taro from "@tarojs/taro";
 import UserInfo = App.UserInfo;
 
-const tabList = [{title: '标签页1'}, {title: '标签页2'}]
+const tabList = [{title: '今日榜单'}, {title: '麻将流水'}]
 
 function Index() {
   const userList: UserInfo[] = useSelector((state: any) => state.userList.value)
@@ -27,7 +26,7 @@ function Index() {
 
   return (
     <>
-      <View className='container'>
+      <View className='container containerExt'>
         <AtMessage/>
 
         <View className='topUserInfo'>
@@ -47,13 +46,10 @@ function Index() {
           </AtTabs>
         </View>
 
-        <AtButton className='submitGame' type='primary' onClick={() => {
-          Taro.atMessage({
-              'message': "xxxxx",
-              'type': 'success',
-            }
-          )
-        }}>test</AtButton>
+        <View className={'bottomButton'}>
+          <AtButton type={'primary'}>记录游戏</AtButton>
+          {/*<AtButton type={'secondary'}>记录游戏</AtButton>*/}
+        </View>
       </View>
     </>
   )

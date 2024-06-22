@@ -1,6 +1,20 @@
+.containerExt {
+  justify-content: space-between;
+}
+
 .topUserInfo {
   height: 13%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  border-bottom: 1px #F0F0F0 solid;
+}
+
+.gameInfo {
+  flex: 1;
+}
+
+
+.bottomButton {
+  width: 100%;
 }
