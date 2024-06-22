@@ -1,0 +1,26 @@
+.gameRoundContainer {
+}
+
+.title {
+  margin: 0 30rpx 20rpx 30rpx;
+  font-weight: bold;
+  color: coral;
+}
+
+.tagList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-bottom: 1rpx #F0F0F0 solid;
+  margin-bottom: 20rpx;
+}
+
+.tag {
+  margin-left: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.numberSliderTitle {
+  display: flex;
+  justify-content: space-between;
+}
