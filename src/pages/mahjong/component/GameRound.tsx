@@ -24,36 +24,38 @@ const initFanList: any[] = [
   {name: 5, value: "杠开", click: false},
 ]
 
-interface GameUser {
-  id: string,
-  name: string,
-  win: boolean,
-  lose: boolean,
-  click: boolean,
-}
-
 const GameRound = () => {
-  const userList: UserInfo[] = useSelector((state: any) => state.userList.value)
+  const userList: UserInfo[] = useSelector((state: any) => state.currentUser.userList)
+  const playerIdList: number[] = useSelector((state: any) => state.mahjong.playerIds)
 
   const [winerCaseList, setWinerCaseList] = useState(initWinerCaseList)
   const [fanList, setFanList] = useState(initFanList)
   const [baseFan, setBaseFan] = useState(0)
   const [totalFan, setTotalFan] = useState(0)
-  const [gameUserList, setGameUserList] = useState<GameUser[]>([])
-  const [palyUserList, setPlayUserList] = useState<GameUser[]>([])
+  const [gameUserList, setGameUserList] = useState<any[]>([])
+  const [palyUserList, setPlayUserList] = useState<any[]>([])
 
   useEffect(() => {
-    const initGameUserList: GameUser[] = userList.map(user => (
-      {
-        id: user.id + '',
-        name: user.nickname,
-        win: false,
-        lose: false,
-        click: false,
-      }
-    ))
-    setGameUserList(initGameUserList)
-  }, [userList])
+    setGameUserList(userList
+      .filter(user => !palyUserList.includes(user.id))
+      .map(user => (
+        {
+          id: user.id + '',
+          name: user.nickname,
+        }
+      )))
+
+    setPlayUserList(userList
+      .filter(user => palyUserList.includes(user.id))
+      .map(user => (
+        {
+          id: user.id + '',
+          name: user.nickname,
+          win: false,
+          lose: false,
+        }
+      )))
+  }, [userList, playerIdList])
 
   useEffect(() => {
     let fan = baseFan
@@ -104,10 +106,7 @@ const GameRound = () => {
     setGameUserList(gameUserList.filter(x => x.id !== selectUser.id))
     setPlayUserList([
       ...palyUserList,
-      {
-        ...selectUser,
-        click: true
-      }
+      selectUser,
     ])
   }
 
@@ -128,7 +127,7 @@ const GameRound = () => {
       <View className={'userList'}>
         {
           gameUserList.map(x =>
-            <AtTag className={'tag'} circle name={x.id} active={x.click} onClick={handleGameUserClick}>
+            <AtTag className={'tag'} circle name={x.id} onClick={handleGameUserClick}>
               {x.name}
             </AtTag>
           )
@@ -150,7 +149,7 @@ const GameRound = () => {
             (
               palyUserList.map(x =>
                 <View id={x.id} onLongPress={handleGameUserLongPress}>
-                  <AtTag className={'tag'} name={x.id} active={x.click} onClick={handlePlayUserClick}>
+                  <AtTag className={'tag'} name={x.id} active onClick={handlePlayUserClick}>
                     {x.name}
                   </AtTag>
                 </View>

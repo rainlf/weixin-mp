@@ -6,7 +6,7 @@ import weixinService from "../weixinService";
 const server = envConfig.server
 
 interface Option {
-  method: 'GET' | 'POST',
+  method: 'GET' | 'POST' | 'DELETE',
   url: string,
   data?: any | undefined,
 }
@@ -30,10 +30,20 @@ const sendPost = (api: string, data: any): Promise<any> => {
   return request(option)
 }
 
+// 封装Delete
+const sendDelete = (api: string, data: any): Promise<any> => {
+  const option: Option = {
+    method: 'DELETE',
+    url: server + api,
+    data,
+  }
+  return request(option)
+}
+
 // 通信切面处理
 const request = async (option: {}): Promise<any> => {
   // get toekn
-  const token = store.getState().token.value
+  const token = store.getState().currentUser.token
   // put token in Authorization header
   const header: {} = {
     'content-type': 'application/json',
@@ -61,4 +71,5 @@ const request = async (option: {}): Promise<any> => {
 export default {
   sendGet,
   sendPost,
+  sendDelete,
 }

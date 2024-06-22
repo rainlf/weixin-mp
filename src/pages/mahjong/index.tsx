@@ -5,19 +5,24 @@ import {AtButton, AtDrawer, AtMessage, AtTabs, AtTabsPane} from "taro-ui";
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import TopUserInfo, {TopUserType} from "./component/TopUserInfo";
-import UserInfo = App.UserInfo;
 import GameRound from "./component/GameRound";
+import {useLoad} from "@tarojs/taro";
+import UserInfo = App.UserInfo;
+import mahjongService from "../../services/mahjongService";
 
 const tabList = [{title: '今日榜单'}, {title: '麻将流水'}]
 
 function Index() {
-  const userList: UserInfo[] = useSelector((state: any) => state.userList.value)
+  const userList: UserInfo[] = useSelector((state: any) => state.currentUser.userList)
 
   const [selectTabIndex, setSelectTabIndex] = useState(0);
   const [topUser, setTopUser] = useState<UserInfo>()
   const [bottomUser, setBottomUser] = useState<UserInfo>()
   const [showDrawer, setShowDrawer] = useState(true)
 
+  useLoad(() => {
+    mahjongService.getPlayUserIdList()
+  })
 
   useEffect(() => {
     const users = [...userList]

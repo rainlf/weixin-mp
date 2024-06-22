@@ -5,7 +5,7 @@ import {AtAvatar, AtDivider, AtGrid, AtIcon, AtMessage, AtNoticebar} from 'taro-
 
 import './index.scss'
 import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 
 import copperCoinIcon from "../../assets/images/铜币.png"
 import silverCoinIcon from "../../assets/images/银币.png"
@@ -18,25 +18,23 @@ import mangoIcon from "../../assets/images/芒果.png"
 import sportIcon from "../../assets/images/运动.png"
 import pointPointPointIcon from "../../assets/images/点点点.png"
 
-import {setCurrentUser} from "../../store/currentUserSlice";
-import {setUserList} from "../../store/userListSlice";
 import UserInfo = App.UserInfo;
 
 const Index = () => {
-  const token: string = useSelector((state: any) => state.token.value)
-  const currentUser: UserInfo = useSelector((state: any) => state.currentUser.value)
-  const dispatch = useDispatch()
+  const token: string = useSelector((state: any) => state.currentUser.token)
+  const currentUser: UserInfo = useSelector((state: any) => state.currentUser.user)
 
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
     (async () => {
       if (token && token.length > 0) {
-        const user: UserInfo = await userService.getCurrentUser()
-        dispatch(setCurrentUser(user))
+        const user = await userService.getCurrentUser()
         if (isUserInited(user)) {
+          // 渲染首页
           setReady(true)
         } else {
+          // 跳转登录
           Taro.redirectTo({
             url: '../login/index',
             success: () => {
@@ -48,9 +46,11 @@ const Index = () => {
             }
           })
         }
-        const userList: UserInfo[] = await userService.getUserList()
-        dispatch(setUserList(userList))
 
+        // 获取全部用户
+        await userService.getUserList()
+
+        // Rain test
         Taro.navigateTo({
           url: '../mahjong/index'
         })

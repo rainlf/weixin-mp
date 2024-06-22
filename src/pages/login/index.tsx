@@ -1,30 +1,37 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Button, Input, Text, View} from '@tarojs/components'
 import {AtAvatar, AtButton, AtMessage} from 'taro-ui'
 import Taro, {useLoad} from '@tarojs/taro'
 
 import './index.scss'
 import userService from "../../services/userService";
+import {useSelector} from "react-redux";
 import UserInfo = App.UserInfo;
 
 const defaultAvatar = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
 
 function Index() {
+  const currentUser: UserInfo = useSelector((state: any) => state.currentUser.user)
+
   const [update, setUpdate] = useState(false)
   const [avatarUrl, setAvatarUrl] = useState(defaultAvatar)
   const [nickname, setNickname] = useState('')
 
+
+  // 解析路径参数
   useLoad((options) => {
     if (options.udpate) {
       setUpdate(options.udpate)
     }
 
     userService.getCurrentUser()
-      .then((userInfo: UserInfo) => {
-        setNickname(userInfo?.nickname)
-        setAvatarUrl(userInfo?.avatar)
-      })
   })
+
+
+  useEffect(() => {
+    setNickname(currentUser.nickname)
+    setAvatarUrl(currentUser.avatar)
+  }, [currentUser]);
 
   const handleChooseAvatar = (e: any) => {
     const avatarUrl = e.detail.avatarUrl // 注意这里可能需要调整以匹配实际返回的数据结构

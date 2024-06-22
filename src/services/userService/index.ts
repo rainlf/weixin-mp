@@ -1,12 +1,18 @@
 import api from '../api'
+import store from "../../store";
+import {setUser, setUserList} from "../../store/currentUserSlice";
 import UserInfo = App.UserInfo;
 
-const getCurrentUser = (): Promise<UserInfo> => {
-  return api.sendGet(`/api/user/current`)
+const getCurrentUser = async () => {
+  const userInfo: UserInfo = await api.sendGet(`/api/user/current`)
+  store.dispatch(setUser(userInfo))
+  return userInfo
 }
 
-const getUserList = (): Promise<UserInfo[]> => {
-  return api.sendGet(`/api/user/list`)
+const getUserList = async () => {
+  const userList: UserInfo[] = await api.sendGet(`/api/user/list`)
+  store.dispatch(setUserList(userList))
+  return userList
 }
 
 const updateCurrentUser = (nickname: string, avatar: string): Promise<UserInfo> => {

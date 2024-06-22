@@ -1,6 +1,6 @@
 import {Component, PropsWithChildren} from 'react'
 import {Provider} from 'react-redux';
-import {setToken} from './store/tokenSlice'
+import {setToken} from './store/currentUserSlice'
 import store from './store'
 import './app.scss'
 
