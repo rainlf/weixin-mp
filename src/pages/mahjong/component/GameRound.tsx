@@ -5,6 +5,7 @@ import {AtButton, AtSlider, AtTag} from "taro-ui";
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import Taro from "@tarojs/taro";
+import mahjongService from "../../../services/mahjongService";
 import UserInfo = App.UserInfo;
 
 
@@ -24,6 +25,23 @@ const initFanList: any[] = [
   {name: 5, value: "杠开", click: false},
 ]
 
+interface GameUser {
+  id: number,
+  name: string,
+}
+
+interface PlayUser {
+  id: number,
+  name: string,
+  status: number,
+}
+
+const playUserColorMap = {
+  0: "playUserBaseStatus",
+  1: "playUserWinStatus",
+  2: "playUserLoseStatus",
+}
+
 const GameRound = () => {
   const userList: UserInfo[] = useSelector((state: any) => state.currentUser.userList)
   const playerIdList: number[] = useSelector((state: any) => state.mahjong.playerIds)
@@ -32,29 +50,31 @@ const GameRound = () => {
   const [fanList, setFanList] = useState(initFanList)
   const [baseFan, setBaseFan] = useState(0)
   const [totalFan, setTotalFan] = useState(0)
-  const [gameUserList, setGameUserList] = useState<any[]>([])
-  const [palyUserList, setPlayUserList] = useState<any[]>([])
+  const [gameUserList, setGameUserList] = useState<GameUser[]>([])
+  const [palyUserList, setPlayUserList] = useState<PlayUser[]>([])
 
   useEffect(() => {
-    setGameUserList(userList
-      .filter(user => !palyUserList.includes(user.id))
+    const initGameUserList = userList
+      .filter(user => !playerIdList.includes(user.id))
       .map(user => (
         {
-          id: user.id + '',
+          id: user.id,
           name: user.nickname,
         }
-      )))
+      ))
+    setGameUserList(initGameUserList)
 
-    setPlayUserList(userList
-      .filter(user => palyUserList.includes(user.id))
+    const initPlayUserList = userList
+      .filter(user => playerIdList.includes(user.id))
       .map(user => (
         {
-          id: user.id + '',
+          id: user.id,
           name: user.nickname,
-          win: false,
-          lose: false,
+          status: 0,
         }
-      )))
+      ))
+    console.log('rain 2', initPlayUserList)
+    setPlayUserList(initPlayUserList)
   }, [userList, playerIdList])
 
   useEffect(() => {
@@ -102,21 +122,35 @@ const GameRound = () => {
     }
 
     const userId = event.name
-    const selectUser = gameUserList.filter(x => x.id === userId)[0]
-    setGameUserList(gameUserList.filter(x => x.id !== selectUser.id))
+    const selectUser = gameUserList.filter(x => x.id == userId)[0]
+    setGameUserList(gameUserList.filter(x => x.id != selectUser.id))
     setPlayUserList([
       ...palyUserList,
-      selectUser,
+      {
+        ...selectUser,
+        status: 0
+      },
     ])
+
+    mahjongService.addPalyUser(userId)
   }
 
-  const handlePlayUserClick = (event) => {
-    console.log('rain', event.name)
+  const handlePlayUserClick = (event: any) => {
+    // const userId = event.name
+    // const selectUser = palyUserList.filter(x => x.id === userId)[0]
+    // selectUser.status
   }
 
   const handleGameUserLongPress = (event: any) => {
-    console.log(event)
-    console.log(event.currentTarget.id)
+    const userId = event.currentTarget.id
+    const selectUser = palyUserList.filter(x => x.id == userId)[0]
+    setGameUserList([
+      ...gameUserList,
+      selectUser,
+    ])
+    setPlayUserList(palyUserList.filter(x => x.id != selectUser.id))
+
+    mahjongService.deletePlayUser(userId)
   }
 
   return <>
@@ -127,7 +161,7 @@ const GameRound = () => {
       <View className={'userList'}>
         {
           gameUserList.map(x =>
-            <AtTag className={'tag'} circle name={x.id} onClick={handleGameUserClick}>
+            <AtTag className={'tag'} circle name={x.id + ''} onClick={handleGameUserClick}>
               {x.name}
             </AtTag>
           )
@@ -136,7 +170,7 @@ const GameRound = () => {
       <View className={'title'}>
         <Text>{"场上玩家"}</Text>
       </View>
-      <View className={'gameUserList'}>
+      <View className={'playerList'}>
         {
           palyUserList.length === 0 ?
             (
@@ -148,8 +182,9 @@ const GameRound = () => {
             ) :
             (
               palyUserList.map(x =>
-                <View id={x.id} onLongPress={handleGameUserLongPress}>
-                  <AtTag className={'tag'} name={x.id} active onClick={handlePlayUserClick}>
+                <View id={x.id + ''} onLongPress={handleGameUserLongPress}>
+                  <AtTag className={'tag ' + playUserColorMap[x.status]} name={x.id + ''} active
+                         onClick={handlePlayUserClick}>
                     {x.name}
                   </AtTag>
                 </View>

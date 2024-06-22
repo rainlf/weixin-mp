@@ -1,13 +1,19 @@
 import UserInfo = App.UserInfo;
 import {createSlice} from '@reduxjs/toolkit'
 
+const initialState: {
+  token: string,
+  user?: UserInfo,
+  userList: UserInfo[],
+} = {
+  token: '',
+  user: undefined,
+  userList: [],
+}
+
 export const currentUserClice = createSlice({
   name: 'user',
-  initialState: {
-    token: '',
-    user: {} as UserInfo,
-    userList: [] as UserInfo[],
-  },
+  initialState,
   reducers: {
     setToken: (state, action) => {
       state.token = action.payload

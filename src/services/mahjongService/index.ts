@@ -4,16 +4,16 @@ import {setPlayerIds} from "../../store/mahjongSlice";
 import MahjongRecordInfo = App.MahjongRecordInfo;
 
 const getPlayUserIdList = async () => {
-  const playUserIdList = await api.sendGet(`/api/mahjong/paly/ids`)
+  const playUserIdList = await api.sendGet(`/api/mahjong/palyer/ids`)
   store.dispatch(setPlayerIds(playUserIdList))
 }
 
 const addPalyUser = (id: number) => {
-  api.sendPost(`/api/mahjong/paly?id=${id}`, null)
+  api.sendPost(`/api/mahjong/palyer?id=${id}`, null)
 }
 
 const deletePlayUser = (id: number) => {
-  api.sendDelete(`/api/mahjong/paly?id=${id}`, null)
+  api.sendDelete(`/api/mahjong/palyer?id=${id}`, null)
 }
 
 const saveRecord = (record: MahjongRecordInfo) => {

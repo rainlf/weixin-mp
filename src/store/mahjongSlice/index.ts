@@ -1,13 +1,17 @@
 import {createSlice} from '@reduxjs/toolkit'
 
+const initialState: {
+  playerIds: number[]
+} = {
+  playerIds: [],
+}
+
 export const mahjongSlice = createSlice({
   name: 'mahjong',
-  initialState: {
-    playerIds: '',
-  },
+  initialState,
   reducers: {
     setPlayerIds: (state, action) => {
-      state.playerIds  = action.payload
+      state.playerIds = action.payload
     },
   }
 })

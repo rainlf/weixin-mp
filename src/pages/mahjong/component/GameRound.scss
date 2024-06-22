@@ -32,13 +32,19 @@
   color: lightgreen;
 }
 
-.tagList {
+.playerList {
   display: flex;
   flex-direction: row;
   border-bottom: 1rpx #F0F0F0 solid;
   margin-bottom: 20rpx;
 }
 
+.tagList {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1rpx #F0F0F0 solid;
+  margin-bottom: 20rpx;
+}
 
 .tag {
   margin-left: 20rpx;
@@ -62,4 +68,16 @@
 
 .button {
   width: 50%;
+}
+
+.playUserBaseStatus {
+
+}
+
+.playUserWinStatus {
+  color: chocolate;
+}
+
+.playUserLoseStatus {
+  color: lightgreen;
 }
