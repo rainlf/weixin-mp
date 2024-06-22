@@ -136,9 +136,23 @@ const GameRound = () => {
   }
 
   const handlePlayUserClick = (event: any) => {
-    // const userId = event.name
-    // const selectUser = palyUserList.filter(x => x.id === userId)[0]
-    // selectUser.status
+    const userId = event.name
+    console.log('rain, ', userId)
+    console.log('rain, 2', (palyUserList.map(x => {
+        return (x.id == userId) ? {
+          ...x,
+          status: x.status + 1 < 3 ? x.status + 1 : 0
+        } : x
+      }
+    )))
+
+    setPlayUserList(palyUserList.map(x => {
+        return (x.id == userId) ? {
+          ...x,
+          status: x.status + 1 < 3 ? x.status + 1 : 0
+        } : x
+      }
+    ))
   }
 
   const handleGameUserLongPress = (event: any) => {
@@ -170,7 +184,7 @@ const GameRound = () => {
       <View className={'title'}>
         <Text>{"场上玩家"}</Text>
       </View>
-      <View className={'playerList'}>
+      <View className={'tagList'}>
         {
           palyUserList.length === 0 ?
             (

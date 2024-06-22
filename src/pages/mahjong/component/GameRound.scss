@@ -32,16 +32,10 @@
   color: lightgreen;
 }
 
-.playerList {
-  display: flex;
-  flex-direction: row;
-  border-bottom: 1rpx #F0F0F0 solid;
-  margin-bottom: 20rpx;
-}
-
 .tagList {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   border-bottom: 1rpx #F0F0F0 solid;
   margin-bottom: 20rpx;
 }
@@ -75,9 +69,9 @@
 }
 
 .playUserWinStatus {
-  color: chocolate;
+  color: orange;
 }
 
 .playUserLoseStatus {
-  color: lightgreen;
+  color: limegreen;
 }
