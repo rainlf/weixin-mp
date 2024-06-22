@@ -1,5 +1,4 @@
 .userInfo {
-  border: 1rpx red solid;
   height: 100%;
   width: 50%;
   display: flex;
@@ -36,7 +35,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10rpx;
+  //margin-right: 10rpx;
 }
 
 .detail {
@@ -54,7 +53,7 @@
   align-items: center;
   font-weight: bold;
   color: mediumpurple;
-  margin-bottom: 10rpx;
+  margin-bottom: 15rpx;
 }
 
 .asset {
