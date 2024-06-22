@@ -4,7 +4,7 @@ import './index.scss'
 import {AtButton, AtMessage, AtTabs, AtTabsPane} from "taro-ui";
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import TopUserInfo from "./component/TopUserInfo";
+import TopUserInfo, {TopUserType} from "./component/TopUserInfo";
 import Taro from "@tarojs/taro";
 import UserInfo = App.UserInfo;
 
@@ -31,8 +31,8 @@ function Index() {
         <AtMessage/>
 
         <View className='topUserInfo'>
-          <TopUserInfo userInfo={topUser}></TopUserInfo>
-          <TopUserInfo userInfo={bottomUser}></TopUserInfo>
+          <TopUserInfo userInfo={topUser} type={TopUserType.TOP}></TopUserInfo>
+          <TopUserInfo userInfo={bottomUser} type={TopUserType.BOTTOM}></TopUserInfo>
         </View>
 
 

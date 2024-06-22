@@ -1,3 +1,81 @@
 .userInfo {
   border: 1rpx red solid;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+}
+
+.verticalText {
+  height: 100%;
+  width: 15%; /* 宽度为屏幕的15% */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 水平居中 */
+  writing-mode: vertical-lr; /* 文字垂直显示，从左向右 */
+  text-orientation: upright; /* 文字方向保持正常 */
+  white-space: nowrap; /* 不换行 */
+  overflow: hidden; /* 隐藏超出部分 */
+  line-height: 1.5em; /* 调整行高 */
+  -webkit-line-clamp: 4; /* 控制最多显示4行 */
+  -webkit-box-orient: vertical; /* 与 line-clamp 配合使用 */
+  font-weight: bolder;
+  margin: 0 -15rpx 0 10rpx;
+}
+
+.topText {
+  color: coral;
+}
+
+.bottomText {
+  color: deepskyblue;
+}
+
+.avatar {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10rpx;
+}
+
+.detail {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.detailContent {
+  width: 100%;
+}
+
+.nickname {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  color: mediumpurple;
+  margin-bottom: 10rpx;
+}
+
+.asset {
+  display: flex;
+  align-items: center;
+}
+
+.coin {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 15rpx;
+}
+
+.assetNumber {
+  font-weight: bold;
+}
+
+.topAsset {
+  color: red;
+}
+
+.bottomAsset {
+  color: green;
 }
