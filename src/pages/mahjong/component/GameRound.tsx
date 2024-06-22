@@ -42,7 +42,10 @@ const playUserColorMap = {
   2: "playUserLoseStatus",
 }
 
-const GameRound = () => {
+const GameRound = ({setShowDrawer}: {
+  setShowDrawer: (visible: boolean) => void
+}) => {
+  const user: UserInfo = useSelector((state: any) => state.currentUser.user)
   const userList: UserInfo[] = useSelector((state: any) => state.currentUser.userList)
   const playerIdList: number[] = useSelector((state: any) => state.mahjong.playerIds)
 
@@ -167,6 +170,15 @@ const GameRound = () => {
     mahjongService.deletePlayUser(userId)
   }
 
+  const handleSaveGameRound = () => {
+    console.log('rain 1', gameUserList)
+    console.log('rain 2', winerCaseList)
+    console.log('rain 3', fanList)
+    console.log('rain 4', baseFan)
+    console.log('rain 5', user)
+
+  }
+
   return <>
     <View className={'gameRoundContainer'}>
       <View className={'title'}>
@@ -181,8 +193,12 @@ const GameRound = () => {
           )
         }
       </View>
-      <View className={'title'}>
+      <View className={'title playerTitle'}>
         <Text>{"场上玩家"}</Text>
+        <View>
+          <Text className={'playUserWinStatus'} style={{marginRight: '10rpx'}}>{'赢'}</Text>
+          <Text className={'playUserLoseStatus'}>{'输'}</Text>
+        </View>
       </View>
       <View className={'tagList'}>
         {
@@ -242,8 +258,8 @@ const GameRound = () => {
         </AtSlider>
       </View>
       <View className={'bottomButton'}>
-        <AtButton className={'button'} type={'secondary'}>取消</AtButton>
-        <AtButton className={'button'} type={'primary'}>确认</AtButton>
+        <AtButton className={'button'} type={'secondary'} onClick={() => setShowDrawer(false)}>取消</AtButton>
+        <AtButton className={'button'} type={'primary'} onClick={() => handleSaveGameRound()}>确认</AtButton>
       </View>
     </View>
   </>

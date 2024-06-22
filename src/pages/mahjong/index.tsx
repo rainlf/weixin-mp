@@ -7,8 +7,8 @@ import {useEffect, useState} from "react";
 import TopUserInfo, {TopUserType} from "./component/TopUserInfo";
 import GameRound from "./component/GameRound";
 import {useLoad} from "@tarojs/taro";
-import UserInfo = App.UserInfo;
 import mahjongService from "../../services/mahjongService";
+import UserInfo = App.UserInfo;
 
 const tabList = [{title: '今日榜单'}, {title: '麻将流水'}]
 
@@ -53,12 +53,11 @@ function Index() {
           </AtTabs>
         </View>
 
-        <View className={'bottomButton'}>
-          <AtButton type={'primary'} onClick={() => setShowDrawer(true)}>{'记录游戏'}</AtButton>
-          {/*<AtButton type={'secondary'}>{'记录游戏'}</AtButton>*/}
-        </View>
+        {/*<AtButton  className={'bottomButton'} type={'primary'} onClick={() => setShowDrawer(true)}>{'记录游戏'}</AtButton>*/}
+        <AtButton className={'bottomButton'} type={'secondary'} onClick={() => setShowDrawer(true)}>{'记录游戏'}</AtButton>
+
         <AtDrawer show={showDrawer} mask onClose={() => setShowDrawer(false)} right width={'100%'}>
-          <GameRound></GameRound>
+          <GameRound setShowDrawer={setShowDrawer}></GameRound>
         </AtDrawer>
       </View>
     </>
