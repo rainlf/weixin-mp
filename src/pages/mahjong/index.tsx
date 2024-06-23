@@ -6,9 +6,8 @@ import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import TopUserInfo, {TopUserType} from "./component/TopUserInfo";
 import GameRound from "./component/GameRound";
-import {useLoad} from "@tarojs/taro";
-import mahjongService from "../../services/mahjongService";
 import UserInfo = App.UserInfo;
+import mahjongService from "../../services/mahjongService";
 
 const tabList = [{title: '今日榜单'}, {title: '麻将流水'}]
 
@@ -21,9 +20,9 @@ function Index() {
   // Rain test
   const [showDrawer, setShowDrawer] = useState(true)
 
-  useLoad(() => {
+  useEffect(() => {
     mahjongService.getPlayUserIdList()
-  })
+  }, [showDrawer]);
 
   useEffect(() => {
     const users = [...userList]
