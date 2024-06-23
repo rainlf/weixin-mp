@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import TopUserInfo, {TopUserType} from "./component/TopUserInfo";
 import GameRound from "./component/GameRound";
+import RankList from "./component/RankList";
 import UserInfo = App.UserInfo;
 import mahjongService from "../../services/mahjongService";
 
@@ -17,8 +18,7 @@ function Index() {
   const [selectTabIndex, setSelectTabIndex] = useState(0);
   const [topUser, setTopUser] = useState<UserInfo>()
   const [bottomUser, setBottomUser] = useState<UserInfo>()
-  // Rain test
-  const [showDrawer, setShowDrawer] = useState(true)
+  const [showDrawer, setShowDrawer] = useState(false)
 
   useEffect(() => {
     mahjongService.getPlayUserIdList()
@@ -45,7 +45,7 @@ function Index() {
         <View className='gameInfo'>
           <AtTabs current={selectTabIndex} tabList={tabList} onClick={(index: number) => setSelectTabIndex(index)}>
             <AtTabsPane current={selectTabIndex} index={0}>
-              <View>标签页一的内容</View>
+              <RankList></RankList>
             </AtTabsPane>
             <AtTabsPane current={selectTabIndex} index={1}>
               <View>标签页二的内容</View>

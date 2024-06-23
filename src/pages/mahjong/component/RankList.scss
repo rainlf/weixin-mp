@@ -1,0 +1,45 @@
+.randItem {
+  display: flex;
+  padding: 10rpx;
+}
+
+.avatar {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20rpx;
+}
+
+.detail {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.detailContent {
+  width: 100%;
+}
+
+.nickname {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  color: mediumpurple;
+  margin-bottom: 15rpx;
+}
+
+.asset {
+  display: flex;
+  align-items: center;
+}
+
+.coin {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 15rpx;
+}
+
+.assetNumber {
+  font-weight: bold;
+}
