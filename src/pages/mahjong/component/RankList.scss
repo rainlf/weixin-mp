@@ -1,9 +1,9 @@
-.randItem {
+.ranKItem {
   display: flex;
   padding: 10rpx;
 }
 
-.avatar {
+.ranKItem .avatar {
   height: 100%;
   display: flex;
   justify-content: center;
@@ -11,17 +11,13 @@
   margin-right: 20rpx;
 }
 
-.detail {
+.ranKItem .detail {
   flex: 1;
   display: flex;
   align-items: center;
 }
 
-.detailContent {
-  width: 100%;
-}
-
-.nickname {
+.ranKItem .nickname {
   display: flex;
   align-items: center;
   font-weight: bold;
@@ -29,17 +25,34 @@
   margin-bottom: 15rpx;
 }
 
-.asset {
+.ranKItem .tags {
   display: flex;
+  justify-content: space-between;
+}
+
+.ranKItem .coin {
+}
+
+.ranKItem .asset {
+  width: 20%;
+  font-weight: bold;
+}
+
+.ranKItem .assetNumber {
+  font-weight: bold;
+}
+
+.ranKItem .flag {
+  width: 10%;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.coin {
-  width: 40rpx;
-  height: 40rpx;
-  margin-right: 15rpx;
+.ranKItem .red {
+  color: red;
 }
 
-.assetNumber {
-  font-weight: bold;
+.ranKItem .green {
+  color: green;
 }
