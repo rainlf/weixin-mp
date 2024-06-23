@@ -18,10 +18,13 @@
 
 .gameRoundContainer .tagList {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
+  flex-direction: row;
   border-bottom: 1rpx #F0F0F0 solid;
   margin-bottom: 20rpx;
+}
+
+.gameRoundContainer .fanList {
 }
 
 .gameRoundContainer .gameUserList {

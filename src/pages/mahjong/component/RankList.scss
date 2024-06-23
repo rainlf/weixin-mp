@@ -35,7 +35,10 @@
 .ranKItem .tags {
   height: 50%;
   display: flex;
-  justify-content: space-between;
+}
+
+.ranKItem .tag {
+  margin-right: 10rpx;
 }
 
 .ranKItem .scoreCoin {

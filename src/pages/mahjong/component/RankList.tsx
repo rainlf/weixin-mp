@@ -37,7 +37,7 @@ const RankList = () => {
     rankList.forEach(item => {
       const userTag = userTags.filter(x => item.id == x.userId)[0]
       if (userTag && userTag.tags) {
-        item.tags = [...userTag.tags]
+        item.tags = [...userTag.tags].splice(0, 4)
       }
     })
     console.log('rain', rankList[0])
@@ -79,7 +79,7 @@ const RankList = () => {
                   rankItem.tags.length > 0 ?
                     (
                       rankItem.tags.map((tag: string) =>
-                        <AtTag size={'small'} active>{tag}</AtTag>
+                        <AtTag className={'tag'} style={{}} size={'small'} active>{tag}</AtTag>
                       )
                     ) :
                     (
