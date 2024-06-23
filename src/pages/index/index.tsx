@@ -119,7 +119,7 @@ const Index = () => {
         console.log('rain ', index)
         Taro.atMessage({
             'message': "建设中，程序员正在骑马赶来的路上...🐎",
-            'type': 'success',
+            'type': 'info',
           }
         )
     }

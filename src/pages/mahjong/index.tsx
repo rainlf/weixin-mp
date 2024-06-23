@@ -1,11 +1,10 @@
 import {View} from "@tarojs/components";
 
 import './index.scss'
-import {AtButton, AtDrawer, AtMessage, AtTabs, AtTabsPane} from "taro-ui";
+import {AtButton, AtMessage, AtTabs, AtTabsPane} from "taro-ui";
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import TopUserInfo, {TopUserType} from "./component/TopUserInfo";
-import GameRound from "./component/GameRound";
 import RankList from "./component/RankList";
 import GameLog from "./component/GameLog";
 import mahjongService from "../../services/mahjongService";
@@ -21,7 +20,6 @@ function Index() {
   const [selectTabIndex, setSelectTabIndex] = useState(0);
   const [topUser, setTopUser] = useState<UserInfo>()
   const [bottomUser, setBottomUser] = useState<UserInfo>()
-  const [showDrawer, setShowDrawer] = useState(false)
 
   useEffect(() => {
     mahjongService.getPlayUserIdList()
@@ -29,7 +27,7 @@ function Index() {
     mahjongService.getLogs()
     userService.getUserList()
     userService.getCurrentUser()
-  }, [showDrawer]);
+  }, []);
 
   useEffect(() => {
     const users = [...userList]
@@ -38,16 +36,16 @@ function Index() {
     setBottomUser(users[0])
   }, [userList])
 
-  const returnHomePage = () => {
-    Taro.navigateBack({
-      delta: 1, // delta 参数表示返回的页面数量，1 表示返回上一个页面
-      success: (() => {
+  const jump2Round = () => {
+    Taro.navigateTo({
+      url: '../mahjongRound/index',
+      success: () => {
         Taro.atMessage({
-            'message': "欢迎回来",
+            'message': "辛苦咯~",
             'type': 'info',
           }
         )
-      })
+      }
     })
   }
 
@@ -72,13 +70,8 @@ function Index() {
         </View>
 
         <View className={'buttonInfo'}>
-          <AtButton className={'button'} type={'secondary'} onClick={returnHomePage}>{'返回'}</AtButton>
-          <AtButton className={'button'} type={'primary'} onClick={() => setShowDrawer(true)}>{'记录游戏'}</AtButton>
+          <AtButton className={'button'} type={'secondary'} onClick={jump2Round}>{'记录游戏'}</AtButton>
         </View>
-
-        <AtDrawer show={showDrawer} mask onClose={() => setShowDrawer(false)} right width={'100%'}>
-          <GameRound setShowDrawer={setShowDrawer}></GameRound>
-        </AtDrawer>
       </View>
     </>
   )

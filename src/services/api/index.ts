@@ -1,9 +1,9 @@
 import ApiResp = App.ApiResp;
 import store from '../../store'
-import envConfig from "../../env.config"
 import weixinService from "../weixinService";
 
-const server = envConfig.server
+// const server = 'http://127.0.0.1:8080'
+const server = 'https://mp.guanshantech.com'
 
 interface Option {
   method: 'GET' | 'POST' | 'DELETE',

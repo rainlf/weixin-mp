@@ -3,7 +3,7 @@ import {Image, Text, View} from "@tarojs/components";
 import './TopUserInfo.scss'
 import {AtAvatar} from "taro-ui";
 
-import coinIcon from "../../../assets/images/硬币.png"
+import coinIcon from "../../../assets/images/铜币.png"
 import {useEffect, useState} from "react";
 import UserInfo = App.UserInfo;
 

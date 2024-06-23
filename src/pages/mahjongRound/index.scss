@@ -54,11 +54,14 @@
 .gameRoundContainer .numberSliderTitle {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0;
+  margin-bottom: 20rpx;
 }
 
 .gameRoundContainer .numberSlider {
   margin-bottom: 20rpx;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 30rpx;
 }
 
 .gameRoundContainer .bottomButton {
@@ -67,7 +70,7 @@
 }
 
 .gameRoundContainer .button {
-  width: 50%;
+  width: 100%;
 }
 
 .gameRoundContainer .playUserBaseStatus {

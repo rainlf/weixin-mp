@@ -1,11 +1,11 @@
 import {Text, View} from "@tarojs/components";
 
-import './GameRound.scss'
-import {AtButton, AtSlider, AtTag} from "taro-ui";
+import './index.scss'
+import {AtButton, AtInputNumber, AtMessage, AtTag} from "taro-ui";
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import Taro from "@tarojs/taro";
-import mahjongService from "../../../services/mahjongService";
+import mahjongService from "../../services/mahjongService";
 import UserInfo = App.UserInfo;
 
 interface WinCase {
@@ -75,9 +75,7 @@ const playUserColorMap = {
   2: "playUserLoseStatus",
 }
 
-const GameRound = ({setShowDrawer}: {
-  setShowDrawer: (visible: boolean) => void
-}) => {
+const GameRound = () => {
   const user: UserInfo = useSelector((state: any) => state.currentUser.user)
   const userList: UserInfo[] = useSelector((state: any) => state.currentUser.userList)
   const playerIdList: number[] = useSelector((state: any) => state.mahjong.playerIds)
@@ -282,9 +280,12 @@ const GameRound = ({setShowDrawer}: {
       fanList: fanList.filter(x => x.click).map(x => x.name),
     }
 
+    Taro.navigateBack({
+      delta: 1
+    })
+
     mahjongService.saveMahjongRoundInfo(roundInfo)
       .then(() => {
-          setShowDrawer(false)
           Taro.atMessage({
             'message': "保存成功，获得奖励💰",
             'type': 'info',
@@ -294,6 +295,7 @@ const GameRound = ({setShowDrawer}: {
   }
 
   return <>
+    <AtMessage/>
     <View className={'gameRoundContainer'}>
       <View className={'title'}>
         <Text>{"玩家"}</Text>
@@ -366,14 +368,10 @@ const GameRound = ({setShowDrawer}: {
         <Text>{"总积分：" + totalFan}</Text>
       </View>
       <View className={'numberSlider'}>
-        <AtSlider min={0} max={20} value={baseFan}
-                  activeColor='#96B8F6'
-                  blockColor='#78A4F4' blockSize={20}
-                  onChange={(number) => setBaseFan(number)}>
-        </AtSlider>
+        <AtInputNumber disabledInput type={'number'} min={0} max={20} step={1} value={baseFan}
+                       onChange={(num: number) => setBaseFan(num)}/>
       </View>
       <View className={'bottomButton'}>
-        <AtButton className={'button'} type={'secondary'} onClick={() => setShowDrawer(false)}>取消</AtButton>
         <AtButton className={'button'} type={'primary'} onClick={() => handleSaveGameRound()}>确认</AtButton>
       </View>
     </View>
