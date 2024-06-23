@@ -8,24 +8,24 @@ import Taro from "@tarojs/taro";
 import mahjongService from "../../../services/mahjongService";
 import UserInfo = App.UserInfo;
 
-interface WinerCase {
-  name: WinerCaseEnum,
+interface WinCase {
+  name: WinCaseEnum,
   value: string,
   click: boolean
 }
 
-enum WinerCaseEnum {
+enum WinCaseEnum {
   MJ_COMMON_WIN,
   MJ_SELF_TOUCH_WIN,
   MJ_ONE_PAO_DOUBLE_WIN,
   MJ_ONE_PAO_TRIPLE_WIN,
 }
 
-const initWinerCaseList: WinerCase[] = [
-  {name: WinerCaseEnum.MJ_COMMON_WIN, value: "胡牌", click: true},
-  {name: WinerCaseEnum.MJ_SELF_TOUCH_WIN, value: "自摸", click: false},
-  {name: WinerCaseEnum.MJ_ONE_PAO_DOUBLE_WIN, value: "一炮双响", click: false},
-  {name: WinerCaseEnum.MJ_ONE_PAO_TRIPLE_WIN, value: "一炮三响", click: false},
+const initWinCaseList: WinCase[] = [
+  {name: WinCaseEnum.MJ_COMMON_WIN, value: "胡牌", click: true},
+  {name: WinCaseEnum.MJ_SELF_TOUCH_WIN, value: "自摸", click: false},
+  {name: WinCaseEnum.MJ_ONE_PAO_DOUBLE_WIN, value: "一炮双响", click: false},
+  {name: WinCaseEnum.MJ_ONE_PAO_TRIPLE_WIN, value: "一炮三响", click: false},
 ]
 
 enum FanEnum {
@@ -82,7 +82,7 @@ const GameRound = ({setShowDrawer}: {
   const userList: UserInfo[] = useSelector((state: any) => state.currentUser.userList)
   const playerIdList: number[] = useSelector((state: any) => state.mahjong.playerIds)
 
-  const [winerCaseList, setWinerCaseList] = useState(initWinerCaseList)
+  const [winCaseList, setWinCaseList] = useState(initWinCaseList)
   const [fanList, setFanList] = useState(initFanList)
   const [baseFan, setBaseFan] = useState(0)
   const [totalFan, setTotalFan] = useState(0)
@@ -116,16 +116,16 @@ const GameRound = ({setShowDrawer}: {
     let fan = baseFan
     fan = fan << fanList.filter(x => x.click).length
 
-    let index = winerCaseList.filter(x => x.click)[0].name
+    let index = winCaseList.filter(x => x.click)[0].name
     if (index === 1) {
       fan = fan * 3
     }
 
     setTotalFan(fan)
-  }, [baseFan, fanList, winerCaseList])
+  }, [baseFan, fanList, winCaseList])
 
-  const handleWinerCaseClick = (event: any) => {
-    const currentList = winerCaseList.map(x => x.name == event.name ? {
+  const handleWinCaseClick = (event: any) => {
+    const currentList = winCaseList.map(x => x.name == event.name ? {
       ...x,
       click: !x.click,
     } : {
@@ -134,9 +134,9 @@ const GameRound = ({setShowDrawer}: {
     })
 
     if (currentList.every(x => !x.click)) {
-      setWinerCaseList(initWinerCaseList)
+      setWinCaseList(initWinCaseList)
     } else {
-      setWinerCaseList(currentList)
+      setWinCaseList(currentList)
     }
   }
 
@@ -195,7 +195,7 @@ const GameRound = ({setShowDrawer}: {
 
   const handleSaveGameRound = () => {
     console.log('rain 1', palyUserList)
-    console.log('rain 2', winerCaseList)
+    console.log('rain 2', winCaseList)
     console.log('rain 3', fanList)
     console.log('rain 4', baseFan)
     console.log('rain 5', user)
@@ -216,8 +216,8 @@ const GameRound = ({setShowDrawer}: {
       return
     }
 
-    const selectWinerCaseList = winerCaseList.filter(x => x.click)
-    if (selectWinerCaseList.length != 1) {
+    const selectWinCaseList = winCaseList.filter(x => x.click)
+    if (selectWinCaseList.length != 1) {
       if (baseFan == 0) {
         Taro.atMessage({
           'message': "只能选择一种和牌类型哦",
@@ -227,13 +227,13 @@ const GameRound = ({setShowDrawer}: {
       }
     }
 
-    const selectWinerCase = selectWinerCaseList[0]
-    let winerIds: number[] = [];
+    const selectWinCase = selectWinCaseList[0]
+    let winnerIds: number[] = [];
     let loserIds: number[] = [];
-    if (selectWinerCase.name == WinerCaseEnum.MJ_COMMON_WIN) {
-      winerIds = palyUserList.filter(x => x.status == PlayUserStatus.WIN).map(x => x.id)
+    if (selectWinCase.name == WinCaseEnum.MJ_COMMON_WIN) {
+      winnerIds = palyUserList.filter(x => x.status == PlayUserStatus.WIN).map(x => x.id)
       loserIds = palyUserList.filter(x => x.status == PlayUserStatus.LOSE).map(x => x.id)
-      if (winerIds.length != 1 || loserIds.length != 1) {
+      if (winnerIds.length != 1 || loserIds.length != 1) {
         Taro.atMessage({
           'message': "胡牌，要1赢1输哦",
           'type': 'warning',
@@ -243,10 +243,10 @@ const GameRound = ({setShowDrawer}: {
 
     }
 
-    if (selectWinerCase.name == WinerCaseEnum.MJ_SELF_TOUCH_WIN) {
-      winerIds = palyUserList.filter(x => x.status == PlayUserStatus.WIN).map(x => x.id)
+    if (selectWinCase.name == WinCaseEnum.MJ_SELF_TOUCH_WIN) {
+      winnerIds = palyUserList.filter(x => x.status == PlayUserStatus.WIN).map(x => x.id)
       loserIds = palyUserList.filter(x => x.status != PlayUserStatus.WIN).map(x => x.id)
-      if (winerIds.length != 1 || loserIds.length != 3) {
+      if (winnerIds.length != 1 || loserIds.length != 3) {
         Taro.atMessage({
           'message': "自摸，要选定1个赢家哦",
           'type': 'warning',
@@ -255,10 +255,10 @@ const GameRound = ({setShowDrawer}: {
       }
     }
 
-    if (selectWinerCase.name == WinerCaseEnum.MJ_ONE_PAO_DOUBLE_WIN) {
-      winerIds = palyUserList.filter(x => x.status == PlayUserStatus.WIN).map(x => x.id)
+    if (selectWinCase.name == WinCaseEnum.MJ_ONE_PAO_DOUBLE_WIN) {
+      winnerIds = palyUserList.filter(x => x.status == PlayUserStatus.WIN).map(x => x.id)
       loserIds = palyUserList.filter(x => x.status == PlayUserStatus.LOSE).map(x => x.id)
-      if (winerIds.length != 2 || loserIds.length != 1) {
+      if (winnerIds.length != 2 || loserIds.length != 1) {
         Taro.atMessage({
           'message': "一炮双响，要2赢1输哦",
           'type': 'warning',
@@ -267,10 +267,10 @@ const GameRound = ({setShowDrawer}: {
       }
     }
 
-    if (selectWinerCase.name == WinerCaseEnum.MJ_ONE_PAO_TRIPLE_WIN) {
-      winerIds = palyUserList.filter(x => x.status != PlayUserStatus.LOSE).map(x => x.id)
+    if (selectWinCase.name == WinCaseEnum.MJ_ONE_PAO_TRIPLE_WIN) {
+      winnerIds = palyUserList.filter(x => x.status != PlayUserStatus.LOSE).map(x => x.id)
       loserIds = palyUserList.filter(x => x.status == PlayUserStatus.LOSE).map(x => x.id)
-      if (winerIds.length != 3 || loserIds.length != 1) {
+      if (winnerIds.length != 3 || loserIds.length != 1) {
         Taro.atMessage({
           'message': "一炮三响，要选定1个输家哦",
           'type': 'warning',
@@ -281,18 +281,19 @@ const GameRound = ({setShowDrawer}: {
 
     const roundInfo = {
       recorderId: user.id,
-      winerIds,
+      winnerIds,
       loserIds,
-      winerCase: selectWinerCase.name,
+      winCase: selectWinCase.name,
       baseFan,
-      fanList: fanList.map(x => x.name),
+      fanList: fanList.filter(x => x.click).map(x => x.name),
     }
     console.log('rain ', roundInfo)
 
     mahjongService.saveMahjongRoundInfo(roundInfo)
       .then(() => {
+          setShowDrawer(false)
           Taro.atMessage({
-            'message': "保存成功",
+            'message': "保存成功，获得奖励💰",
             'type': 'info',
           })
         }
@@ -347,8 +348,8 @@ const GameRound = ({setShowDrawer}: {
       </View>
       <View className={'tagList'}>
         {
-          winerCaseList.map(x =>
-            <AtTag className={'tag'} circle name={x.name + ''} active={x.click} onClick={handleWinerCaseClick}>
+          winCaseList.map(x =>
+            <AtTag className={'tag'} circle name={x.name + ''} active={x.click} onClick={handleWinCaseClick}>
               {x.value}
             </AtTag>
           )

@@ -35,9 +35,9 @@ declare namespace App {
 
   interface MahjongRoundInfo {
     recorderId: number,
-    winerIds: number[],
+    winnerIds: number[],
     loserIds: number[],
-    winerCase: number,
+    winCase: number,
     baseFan: number,
     fanList: number[],
   }
