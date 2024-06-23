@@ -22,6 +22,7 @@ function Index() {
 
   useEffect(() => {
     mahjongService.getPlayUserIdList()
+    mahjongService.getUserTage(userList.map(x => x.id))
   }, [showDrawer]);
 
   useEffect(() => {

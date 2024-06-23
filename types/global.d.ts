@@ -42,10 +42,8 @@ declare namespace App {
     fanList: number[],
   }
 
-  interface MahjongRoundLog {
+  interface UserTag {
     userId: number,
-    userName: string,
-    userAvatar: string,
-    score: number,
+    tags: string[]
   }
 }

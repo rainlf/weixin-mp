@@ -52,16 +52,16 @@ const request = async (option: {}): Promise<any> => {
 
   // send and await request
   try {
-    console.log("Request >>", option)
+    // console.log("Request >>", option)
     const response: any = await weixinService.wxRequest({...option, header})
-    console.log('Response <<', response)
+    // console.log('Response <<', response)
     const apiResp: ApiResp<any> = response.data;
     if (!apiResp.success) {
       weixinService.wxShowToast(apiResp.errorMsg)
     }
     return apiResp.data
   } catch (error) {
-    console.error("Error <<", error)
+    // console.error("Error <<", error)
     weixinService.wxShowToast('服务器正在迷路中，请稍后重试...')
 
   }
