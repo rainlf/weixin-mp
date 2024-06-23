@@ -299,13 +299,14 @@ const GameRound = ({setShowDrawer}: {
       <View className={'title'}>
         <Text>{"玩家"}</Text>
       </View>
-      <View className={'userList'}>
+      <View className={'tagList userList'}>
         {
           gameUserList.map(x =>
-            <AtTag className={'tag'} circle name={x.id + ''} onClick={handleGameUserClick}>
+            <AtTag className={'tag'} name={x.id + ''} onClick={handleGameUserClick}>
               {x.name}
             </AtTag>
           )
+
         }
       </View>
       <View className={'title playerTitle'}>
@@ -352,7 +353,7 @@ const GameRound = ({setShowDrawer}: {
       <View className={'title'}>
         <Text>{"牌型"}</Text>
       </View>
-      <View className={'tagList'}>
+      <View className={'tagList fanList'}>
         {
           fanList.map(x =>
             <AtTag className={'tag'} circle name={x.name + ''} active={x.click} onClick={handleFanListClick}>

@@ -13,6 +13,13 @@
 
 .userList {
   flex: 1;
+  overflow: scroll;
+}
+
+.tagList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   border-bottom: 1rpx #F0F0F0 solid;
   margin-bottom: 20rpx;
 }
@@ -32,17 +39,8 @@
   color: lightgreen;
 }
 
-.tagList {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  border-bottom: 1rpx #F0F0F0 solid;
-  margin-bottom: 20rpx;
-}
-
 .tag {
-  margin-left: 20rpx;
-  margin-bottom: 20rpx;
+  margin: 0 10rpx 20rpx 20rpx
 }
 
 .playerTitle {
@@ -74,7 +72,7 @@
 }
 
 .playUserWinStatus {
-  color: orange;
+  color: coral;
 }
 
 .playUserLoseStatus {
