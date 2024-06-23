@@ -1,17 +1,25 @@
 .userInfo {
   height: 10%;
   width: 100%;
-  margin: 50rpx;
+  margin: 40rpx 0 40rpx 40rpx;
   display: flex;
-  justify-content: space-between;
 }
 
 .avatarWrapper {
+  height: auto;
   display: flex;
   align-items: center;
+  margin-right: 40rpx;
 }
 
+
+.detailWrapperWrapper {
+  flex: 1;
+}
+
+
 .detailWrapper {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -44,7 +52,7 @@
 .updateButtonWrapper {
   display: flex;
   align-items: center;
-  padding-right: 10rpx;
+  padding-right: 5rpx;
   width: 12%;
 }
 

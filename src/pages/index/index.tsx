@@ -51,9 +51,9 @@ const Index = () => {
         await userService.getUserList()
 
         // Rain test
-        Taro.navigateTo({
-          url: '../mahjong/index'
-        })
+        // Taro.navigateTo({
+        //   url: '../mahjong/index'
+        // })
       }
     })();
   }, [token])
@@ -116,6 +116,7 @@ const Index = () => {
         })
         break;
       default:
+        console.log('rain ', index)
         Taro.atMessage({
             'message': "建设中，程序员正在骑马赶来的路上...🐎",
             'type': 'success',
@@ -126,31 +127,33 @@ const Index = () => {
 
   return (
     <>
+      <AtMessage/>
       {
         ready &&
         <View className='container'>
-          <AtMessage/>
-          <AtNoticebar single marquee speed={50}>这是 NoticeBar 通告栏</AtNoticebar>
+          <AtNoticebar single marquee speed={50}>{'芒果🥭    橘子🍊    山药🍒    土豆🥔    芋泥🍑  胡萝卜🥕  大米饭 🍚'}</AtNoticebar>
 
           <View className='userInfo'>
             <View className='avatarWrapper'>
               <AtAvatar size="large" image={currentUser.avatar}></AtAvatar>
             </View>
 
-            <View className='detailWrapper'>
-              <view className='nickname'>
-                <Text>{currentUser.nickname}</Text>
-              </view>
-              <view className='asset'>
-                <Image className="coin" src={copperCoinIcon}></Image>
-                <View className="coinNumber">
-                  <text>{currentUser.copperCoin}</text>
-                </View>
-                <Image className="coin" src={silverCoinIcon}></Image>
-                <Text className="coinNumber">{currentUser.silverCoin}</Text>
-                <Image className="coin" src={goldCoinIcon}></Image>
-                <Text className="coinNumber">{currentUser.goldCoin}</Text>
-              </view>
+            <View className={'detailWrapperWrapper'}>
+              <View className='detailWrapper'>
+                <view className='nickname'>
+                  <Text>{currentUser.nickname}</Text>
+                </view>
+                <view className='asset'>
+                  <Image className="coin" src={copperCoinIcon}></Image>
+                  <View className="coinNumber">
+                    <text>{currentUser.copperCoin}</text>
+                  </View>
+                  <Image className="coin" src={silverCoinIcon}></Image>
+                  <Text className="coinNumber">{currentUser.silverCoin}</Text>
+                  <Image className="coin" src={goldCoinIcon}></Image>
+                  <Text className="coinNumber">{currentUser.goldCoin}</Text>
+                </view>
+              </View>
             </View>
 
             <view className="updateButtonWrapper" onClick={handlUpdateButtonClick}>

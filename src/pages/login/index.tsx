@@ -90,8 +90,8 @@ function Index() {
 
   return (
     <>
+      <AtMessage/>
       <View className='loginContainer'>
-        <AtMessage/>
         <View className="userinfo">
           <Button className="avatarWrapper" open-type="chooseAvatar" onChooseAvatar={handleChooseAvatar}>
             <AtAvatar className="avatar" image={avatarUrl}></AtAvatar>

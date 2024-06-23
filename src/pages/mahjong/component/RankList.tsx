@@ -36,7 +36,7 @@ const RankList = () => {
     rankList.forEach(item => {
       const userTag = userTags.filter(x => item.id == x.userId)[0]
       if (userTag && userTag.tags) {
-        item.tags = [...userTag.tags].splice(0, 4)
+        item.tags = [...userTag.tags].splice(0, 3)
       }
     })
 
