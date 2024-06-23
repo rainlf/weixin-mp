@@ -1,11 +1,12 @@
-.userInfo {
+.topUserContainer {
   height: 100%;
   width: 50%;
   display: flex;
-  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 1px #F0F0F0 solid;
 }
 
-.verticalText {
+.topUserContainer .verticalText {
   height: 100%;
   width: 15%; /* 宽度为屏幕的15% */
   display: flex;
@@ -19,36 +20,36 @@
   -webkit-line-clamp: 4; /* 控制最多显示4行 */
   -webkit-box-orient: vertical; /* 与 line-clamp 配合使用 */
   font-weight: bolder;
-  margin: 0 -15rpx 0 10rpx;
+  margin: 0 10rpx 0 10rpx;
 }
 
-.topText {
+.topUserContainer .topText {
   color: coral;
 }
 
-.bottomText {
+.topUserContainer .bottomText {
   color: deepskyblue;
 }
 
-.avatar {
+.topUserContainer .avatar {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  //margin-right: 10rpx;
+  margin-right: 10rpx;
 }
 
-.detail {
+.topUserContainer .detail {
   flex: 1;
   display: flex;
   align-items: center;
 }
 
-.detailContent {
+.topUserContainer .detailContent {
   width: 100%;
 }
 
-.nickname {
+.topUserContainer .nickname {
   display: flex;
   align-items: center;
   font-weight: bold;
@@ -56,25 +57,25 @@
   margin-bottom: 15rpx;
 }
 
-.asset {
+.topUserContainer .asset {
   display: flex;
   align-items: center;
 }
 
-.coin {
+.topUserContainer .coin {
   width: 40rpx;
   height: 40rpx;
   margin-right: 15rpx;
 }
 
-.assetNumber {
+.topUserContainer .assetNumber {
   font-weight: bold;
 }
 
-.topAsset {
+.topUserContainer .topAsset {
   color: red;
 }
 
-.bottomAsset {
+.topUserContainer .bottomAsset {
   color: green;
 }

@@ -7,8 +7,8 @@ import {useEffect, useState} from "react";
 import TopUserInfo, {TopUserType} from "./component/TopUserInfo";
 import GameRound from "./component/GameRound";
 import RankList from "./component/RankList";
-import UserInfo = App.UserInfo;
 import mahjongService from "../../services/mahjongService";
+import UserInfo = App.UserInfo;
 
 const tabList = [{title: '今日榜单'}, {title: '麻将流水'}]
 
@@ -33,14 +33,13 @@ function Index() {
 
   return (
     <>
-      <View className='container containerExt'>
+      <View className='container mahjongContainer'>
         <AtMessage/>
 
         <View className='topUserInfo'>
           <TopUserInfo userInfo={topUser} type={TopUserType.TOP}></TopUserInfo>
           <TopUserInfo userInfo={bottomUser} type={TopUserType.BOTTOM}></TopUserInfo>
         </View>
-
 
         <View className='gameInfo'>
           <AtTabs current={selectTabIndex} tabList={tabList} onClick={(index: number) => setSelectTabIndex(index)}>
@@ -53,8 +52,8 @@ function Index() {
           </AtTabs>
         </View>
 
-        {/*<AtButton  className={'bottomButton'} type={'primary'} onClick={() => setShowDrawer(true)}>{'记录游戏'}</AtButton>*/}
-        <AtButton className={'bottomButton'} type={'secondary'} onClick={() => setShowDrawer(true)}>{'记录游戏'}</AtButton>
+        <AtButton className={'bottomButton'} type={'secondary'}
+                  onClick={() => setShowDrawer(true)}>{'记录游戏'}</AtButton>
 
         <AtDrawer show={showDrawer} mask onClose={() => setShowDrawer(false)} right width={'100%'}>
           <GameRound setShowDrawer={setShowDrawer}></GameRound>

@@ -13,12 +13,6 @@ import heartBrokenIcon from "../../../assets/images/heart-broken.png";
 import UserInfo = App.UserInfo;
 
 
-//
-// interface RankItem {
-//   name: string,
-//   avatar: string,
-// }
-
 const RankList = () => {
   const userList: UserInfo[] = useSelector((state: any) => state.currentUser.userList)
 
@@ -37,11 +31,11 @@ const RankList = () => {
 
     rankList.sort((a, b) => +b.score - +a.score)
     rankList.forEach(x => x.crown = null)
-    rankList[0].crown = vipCrownIcon
-    rankList[1].crown = goldCrownIcon
-    rankList[2].crown = silverCrownIcon
-    rankList[3].crown = copperCrownIcon
-    if (+rankList[rankList.length - 1].score != 0) {
+    if (rankList[0]) rankList[0].crown = vipCrownIcon
+    if (rankList[1]) rankList[1].crown = goldCrownIcon
+    if (rankList[2]) rankList[2].crown = silverCrownIcon
+    if (rankList[3]) rankList[3].crown = copperCrownIcon
+    if (rankList[rankList.length - 1] && +rankList[rankList.length - 1].score != 0) {
       rankList[rankList.length - 1].crown = heartBrokenIcon
     }
 
@@ -55,33 +49,35 @@ const RankList = () => {
   }, [userList]);
 
   return <>
-    {
-      rankList?.map(rankItem =>
-        <View className={'ranKItem'}>
-          <View className='avatar'>
-            <AtAvatar size={'small'} image={rankItem.avatar}></AtAvatar>
-          </View>
-          <View className='detail'>
-            <View className={'nickname'}>
-              <Text>{rankItem.name}</Text>
+      <View className={'rankListContainer'}>
+        {
+          rankList?.map(rankItem =>
+            <View className={'ranKItem'}>
+              <View className='avatar'>
+                <AtAvatar size={'small'} image={rankItem.avatar}></AtAvatar>
+              </View>
+              <View className='detail'>
+                <View className={'nickname'}>
+                  <Text>{rankItem.name}</Text>
+                </View>
+                <View className={'tags'}>
+                  <AtTag size={'small'} active>{'AAAA'}</AtTag>
+                </View>
+              </View>
+              <View className={'asset'}>
+                <Image className={'scoreCoin'} src={coinIcon}></Image>
+                <Text
+                  className={'assetNumber ' + rankItem.scoreColor}>{rankItem.score}</Text>
+              </View>
+              <View className={'flag'}>
+                {
+                  rankItem.crown && <Image className={'flagCoin'} src={rankItem.crown}></Image>
+                }
+              </View>
             </View>
-            <View className={'tags'}>
-              <AtTag size={'small'} active>{'AAAA'}</AtTag>
-            </View>
-          </View>
-          <View className={'asset'}>
-            <Image className={'coin'} src={coinIcon}></Image>
-            <Text
-              className={'assetNumber ' + rankItem.scoreColor}>{rankItem.score}</Text>
-          </View>
-          <View className={'flag'}>
-            {
-              rankItem.crown && <Image className={'coin'} src={rankItem.crown}></Image>
-            }
-          </View>
-        </View>
-      )
-    }
+          )
+        }
+      </View>
   </>
 }
 
