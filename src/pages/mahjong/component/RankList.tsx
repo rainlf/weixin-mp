@@ -9,7 +9,7 @@ import vipCrownIcon from "../../../assets/images/VIP王冠.png";
 import goldCrownIcon from "../../../assets/images/金王冠.png";
 import silverCrownIcon from "../../../assets/images/银王冠.png";
 import copperCrownIcon from "../../../assets/images/铜王冠.png";
-import heartBrokenIcon from "../../../assets/images/heart-broken.png";
+import heartBrokenIcon from "../../../assets/images/403-broken-heart.png";
 import UserInfo = App.UserInfo;
 
 
