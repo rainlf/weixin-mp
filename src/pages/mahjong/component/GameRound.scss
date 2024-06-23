@@ -5,18 +5,18 @@
   padding-top: 20rpx;
 }
 
-.title {
+.gameRoundContainer .title {
   margin: 0 30rpx 20rpx 30rpx;
   font-weight: bold;
   color: coral;
 }
 
-.userList {
+.gameRoundContainer .userList {
   flex: 1;
   overflow: auto;
 }
 
-.tagList {
+.gameRoundContainer .tagList {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -24,57 +24,57 @@
   margin-bottom: 20rpx;
 }
 
-.gameUserList {
+.gameRoundContainer .gameUserList {
   display: flex;
   flex-direction: row;
   border-bottom: 1rpx #F0F0F0 solid;
   margin-bottom: 20rpx;
 }
 
-.winnerTag {
+.gameRoundContainer .winnerTag {
   color: coral;
 }
 
-.loserTag {
+.gameRoundContainer .loserTag {
   color: lightgreen;
 }
 
-.tag {
+.gameRoundContainer .tag {
   margin: 0 10rpx 20rpx 20rpx
 }
 
-.playerTitle {
+.gameRoundContainer .playerTitle {
   display: flex;
   justify-content: space-between;
 }
 
-.numberSliderTitle {
+.gameRoundContainer .numberSliderTitle {
   display: flex;
   justify-content: space-between;
   margin-bottom: 0;
 }
 
-.numberSlider {
+.gameRoundContainer .numberSlider {
   margin-bottom: 20rpx;
 }
 
-.bottomButton {
+.gameRoundContainer .bottomButton {
   display: flex;
   flex-direction: row;
 }
 
-.button {
+.gameRoundContainer .button {
   width: 50%;
 }
 
-.playUserBaseStatus {
+.gameRoundContainer .playUserBaseStatus {
 
 }
 
-.playUserWinStatus {
+.gameRoundContainer .playUserWinStatus {
   color: coral;
 }
 
-.playUserLoseStatus {
+.gameRoundContainer .playUserLoseStatus {
   color: limegreen;
 }

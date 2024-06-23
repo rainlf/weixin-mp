@@ -1,4 +1,5 @@
 .mahjongContainer {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -11,14 +12,15 @@
 }
 
 .gameInfo {
-  flex: 1;
+  height: 80%;
 }
 
-.bottomButton {
+.buttonInfo {
+  height: 7%;
   width: 100%;
 }
 
-//.gameInfo .at-tabs__body  {
-//  //height: 50%;
-//  border: 2px red green();
-//}
+.button {
+  height: 100%;
+  width: 100%;
+}

@@ -52,8 +52,11 @@ function Index() {
           </AtTabs>
         </View>
 
-        <AtButton className={'bottomButton'} type={'secondary'}
-                  onClick={() => setShowDrawer(true)}>{'记录游戏'}</AtButton>
+        <View className={'buttonInfo'}>
+          <AtButton className={'button'} type={'secondary'}
+                    onClick={() => setShowDrawer(true)}>{'记录游戏'}</AtButton>
+        </View>
+
 
         <AtDrawer show={showDrawer} mask onClose={() => setShowDrawer(false)} right width={'100%'}>
           <GameRound setShowDrawer={setShowDrawer}></GameRound>
