@@ -18,6 +18,7 @@ function Index() {
   const [selectTabIndex, setSelectTabIndex] = useState(0);
   const [topUser, setTopUser] = useState<UserInfo>()
   const [bottomUser, setBottomUser] = useState<UserInfo>()
+  // Rain test
   const [showDrawer, setShowDrawer] = useState(true)
 
   useLoad(() => {

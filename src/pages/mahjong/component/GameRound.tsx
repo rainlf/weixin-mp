@@ -194,12 +194,6 @@ const GameRound = ({setShowDrawer}: {
   }
 
   const handleSaveGameRound = () => {
-    console.log('rain 1', palyUserList)
-    console.log('rain 2', winCaseList)
-    console.log('rain 3', fanList)
-    console.log('rain 4', baseFan)
-    console.log('rain 5', user)
-
     if (palyUserList.length != 4) {
       Taro.atMessage({
         'message': "场上玩家要有4人哦",

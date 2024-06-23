@@ -22,9 +22,8 @@ const TopUserInfo = (props: TopUserInfoProps) => {
   const isTop: boolean = TopUserType.TOP === props.type
   const text: string = isTop ? '全场最佳' : '全场垫底'
   const textColor: string = isTop ? 'topText' : 'bottomText'
-  const asset: string = isTop ? '+' + userInfo?.copperCoin : '-' + userInfo?.copperCoin
+  const asset: string = isTop ? '+' + userInfo?.copperCoin : '' + userInfo?.copperCoin
   const assetColor: string = isTop ? 'topAsset' : 'bottomAsset';
-
 
   return <>
     <View className='userInfo'>
