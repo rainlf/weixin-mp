@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import TopUserInfo, {TopUserType} from "./component/TopUserInfo";
 import GameRound from "./component/GameRound";
 import RankList from "./component/RankList";
+import GameLog from "./component/GameLog";
 import mahjongService from "../../services/mahjongService";
 import UserInfo = App.UserInfo;
 
@@ -15,14 +16,17 @@ const tabList = [{title: '今日榜单'}, {title: '麻将流水'}]
 function Index() {
   const userList: UserInfo[] = useSelector((state: any) => state.currentUser.userList)
 
-  const [selectTabIndex, setSelectTabIndex] = useState(0);
+
+  // rain test
+  const [selectTabIndex, setSelectTabIndex] = useState(1);
   const [topUser, setTopUser] = useState<UserInfo>()
   const [bottomUser, setBottomUser] = useState<UserInfo>()
   const [showDrawer, setShowDrawer] = useState(false)
 
   useEffect(() => {
     mahjongService.getPlayUserIdList()
-    mahjongService.getUserTage(userList.map(x => x.id))
+    mahjongService.getUserTags(userList.map(x => x.id))
+    mahjongService.getLogs()
   }, [showDrawer]);
 
   useEffect(() => {
@@ -48,7 +52,7 @@ function Index() {
               <RankList></RankList>
             </AtTabsPane>
             <AtTabsPane current={selectTabIndex} index={1}>
-              <View>标签页二的内容</View>
+              <GameLog></GameLog>
             </AtTabsPane>
           </AtTabs>
         </View>

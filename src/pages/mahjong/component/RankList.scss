@@ -1,11 +1,13 @@
 .rankListContainer {
   height: 70vh;
   overflow: auto;
+  padding-top: 10rpx;
 }
 
 .ranKItem {
   display: flex;
   padding: 10rpx;
+  border-bottom: 1rpx #F0F0F0 solid;
 }
 
 .ranKItem .avatar {

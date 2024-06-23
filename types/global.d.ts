@@ -42,8 +42,18 @@ declare namespace App {
     fanList: number[],
   }
 
-  interface UserTag {
+  interface MahjongUserTag {
     userId: number,
-    tags: string[]
+    tags: string[],
+  }
+
+  interface MahjongLog {
+    recorderId: number,
+    recorderName: string,
+    recorderAvatar: string,
+    recorderAward: number,
+    gameTags: string[],
+    winners: { userId: number, userName: string, userAvatar: string, socre: number }[],
+    losers: { userId: number, userName: string, userAvatar: string, socre: number }[],
   }
 }

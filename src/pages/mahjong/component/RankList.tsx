@@ -11,7 +11,7 @@ import silverCrownIcon from "../../../assets/images/银王冠.png";
 import copperCrownIcon from "../../../assets/images/铜王冠.png";
 import heartBrokenIcon from "../../../assets/images/403-broken-heart.png";
 import UserInfo = App.UserInfo;
-import UserTag = App.UserTag;
+import UserTag = App.MahjongUserTag;
 
 
 const RankList = () => {
@@ -33,14 +33,12 @@ const RankList = () => {
       }
     ))
 
-    console.log('rain', rankList[0])
     rankList.forEach(item => {
       const userTag = userTags.filter(x => item.id == x.userId)[0]
       if (userTag && userTag.tags) {
         item.tags = [...userTag.tags].splice(0, 4)
       }
     })
-    console.log('rain', rankList[0])
 
     rankList.sort((a, b) => +b.score - +a.score)
     rankList.forEach(x => x.crown = null)
@@ -52,7 +50,6 @@ const RankList = () => {
       rankList[rankList.length - 1].crown = heartBrokenIcon
     }
 
-    console.log('rain', rankList)
     const zeroList = rankList.filter(x => !(+x.score == 0))
     const noZeroList = rankList.filter(x => !(+x.score != 0))
 
@@ -68,7 +65,7 @@ const RankList = () => {
         rankList?.map(rankItem =>
           <View className={'ranKItem'}>
             <View className='avatar'>
-              <AtAvatar size={'small'} image={rankItem.avatar}></AtAvatar>
+              <AtAvatar className={'avatarImg'} size={'small'} image={rankItem.avatar}></AtAvatar>
             </View>
             <View className='detail'>
               <View className={'nickname'}>
@@ -79,7 +76,7 @@ const RankList = () => {
                   rankItem.tags.length > 0 ?
                     (
                       rankItem.tags.map((tag: string) =>
-                        <AtTag className={'tag'} style={{}} size={'small'} active>{tag}</AtTag>
+                        <AtTag className={'tag'} size={'small'} active>{tag}</AtTag>
                       )
                     ) :
                     (

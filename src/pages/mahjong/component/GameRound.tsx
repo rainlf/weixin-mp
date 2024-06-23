@@ -281,7 +281,6 @@ const GameRound = ({setShowDrawer}: {
       baseFan,
       fanList: fanList.filter(x => x.click).map(x => x.name),
     }
-    console.log('rain ', roundInfo)
 
     mahjongService.saveMahjongRoundInfo(roundInfo)
       .then(() => {

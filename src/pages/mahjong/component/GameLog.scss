@@ -1,0 +1,67 @@
+.gameLogContainer {
+  height: 70vh;
+  overflow: auto;
+  padding-top: 10rpx;
+}
+
+.logItem {
+  display: flex;
+  padding: 10rpx;
+  border-bottom: 1rpx #F0F0F0 solid;
+}
+
+.logItemAvatar {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20rpx;
+}
+
+.logItemLogInfo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.logItemTagList {
+  margin-bottom: 5rpx;
+}
+
+.logItemTag {
+  margin-right: 10rpx;
+}
+
+.logItemDetail {
+  width: 100%;
+  display: flex;
+}
+
+.logItemWinInfo {
+  width: 50%;
+}
+
+.logItemLoseInfo {
+  width: 50%;
+}
+
+.logItemName {
+  color: #E4AD73
+}
+
+.logItemWinScore {
+  color: #F70302;
+}
+
+.logItemLoseScore {
+  color: #008200;
+}
+
+.logItemAward {
+  color: #623B97;
+}
+
+.logItemFontSize {
+  font-weight: bold;
+  font-size: small;
+}
