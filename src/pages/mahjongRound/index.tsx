@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import Taro from "@tarojs/taro";
 import mahjongService from "../../services/mahjongService";
+import userService from "../../services/userService";
 import UserInfo = App.UserInfo;
 
 interface WinCase {
@@ -286,6 +287,11 @@ const GameRound = () => {
 
     mahjongService.saveMahjongRoundInfo(roundInfo)
       .then(() => {
+          mahjongService.getPlayUserIdList()
+          mahjongService.getUserTags(userList.map(x => x.id))
+          mahjongService.getLogs()
+          userService.getUserList()
+          userService.getCurrentUser()
           Taro.atMessage({
             'message': "保存成功，获得奖励💰",
             'type': 'info',
