@@ -20,7 +20,7 @@ import pointPointPointIcon from "../../assets/images/点点点.png"
 
 import UserInfo = App.UserInfo;
 
-const Index = () => {
+const MainPage = () => {
   const token: string = useSelector((state: any) => state.currentUser.token)
   const currentUser: UserInfo = useSelector((state: any) => state.currentUser.user)
 
@@ -174,4 +174,4 @@ const Index = () => {
   )
 }
 
-export default Index
+export default MainPage

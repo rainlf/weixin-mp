@@ -14,7 +14,7 @@ import UserInfo = App.UserInfo;
 
 const tabList = [{title: '今日榜单'}, {title: '麻将流水'}]
 
-function Index() {
+function MahjongPage() {
   const userList: UserInfo[] = useSelector((state: any) => state.currentUser.userList)
 
   const [selectTabIndex, setSelectTabIndex] = useState(0);
@@ -77,4 +77,4 @@ function Index() {
   )
 }
 
-export default Index
+export default MahjongPage

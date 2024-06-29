@@ -10,7 +10,7 @@ import UserInfo = App.UserInfo;
 
 const defaultAvatar = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
 
-function Index() {
+function LoginPage() {
   const currentUser: UserInfo = useSelector((state: any) => state.currentUser.user)
 
   const [update, setUpdate] = useState(false)
@@ -110,4 +110,4 @@ function Index() {
   )
 }
 
-export default Index
+export default LoginPage

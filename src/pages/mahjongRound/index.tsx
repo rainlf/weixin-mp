@@ -76,7 +76,7 @@ const playUserColorMap = {
   2: "playUserLoseStatus",
 }
 
-const GameRound = () => {
+const GameRoundPage = () => {
   const user: UserInfo = useSelector((state: any) => state.currentUser.user)
   const userList: UserInfo[] = useSelector((state: any) => state.currentUser.userList)
   const playerIdList: number[] = useSelector((state: any) => state.mahjong.playerIds)
@@ -384,4 +384,4 @@ const GameRound = () => {
   </>
 }
 
-export default GameRound;
+export default GameRoundPage;

@@ -55,14 +55,14 @@ const GameLog = () => {
                       </View>
                     )
                   }
-                  {/*{*/}
-                  {/*  <View>*/}
-                  {/*    <Text className={'logItemName logItemFontSize'}>{log.recorderName}</Text>*/}
-                  {/*    <Text className={'logItemName logItemFontSize'}>{' : '}</Text>*/}
-                  {/*    <Text className={'logItemWinScore logItemFontSize'}>{showScore(log.recorderAward)}</Text>*/}
-                  {/*    <Text className={'logItemAward logItemFontSize'}>{' 奖'}</Text>*/}
-                  {/*  </View>*/}
-                  {/*}*/}
+                  {
+                    <View>
+                      <Text className={'logItemName logItemFontSize'}>{log.recorderName}</Text>
+                      <Text className={'logItemAward logItemFontSize'}>{' [奖]'}</Text>
+                      <Text className={'logItemName logItemFontSize'}>{' : '}</Text>
+                      <Text className={'logItemWinScore logItemFontSize'}>{showScore(log.recorderAward)}</Text>
+                    </View>
+                  }
                 </View>
 
                 <View className={'logItemLoseInfo'}>
