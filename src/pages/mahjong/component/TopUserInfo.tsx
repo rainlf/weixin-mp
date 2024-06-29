@@ -37,7 +37,7 @@ const TopUserInfo = (props: TopUserInfoProps) => {
       setTopUser({
         avatar: userInfo?.avatar,
         name: userInfo?.nickname,
-        title: '全场垫底',
+        title: '全场最菜',
         titleColor: 'bottomText',
         score: '' + userInfo?.copperCoin,
         scoreColor: 'bottomAsset',

@@ -33,7 +33,7 @@ declare namespace App {
     goldCoin: number,
   }
 
-  interface MahjongRoundInfo {
+  interface MahjongGameInfo {
     recorderId: number,
     winnerIds: number[],
     loserIds: number[],

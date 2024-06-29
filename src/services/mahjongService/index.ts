@@ -1,7 +1,7 @@
 import api from '../api'
 import store from "../../store";
 import {setLogs, setPlayerIds, setUserTags} from "../../store/mahjongSlice";
-import MahjongRoundInfo = App.MahjongRoundInfo;
+import MahjongGameInfo = App.MahjongGameInfo;
 
 const getPlayUserIdList = async () => {
   const playUserIdList = await api.sendGet(`/api/mahjong/palyer/ids`)
@@ -17,8 +17,8 @@ const deletePlayUser = (id: number) => {
   return api.sendDelete(`/api/mahjong/palyer?id=${id}`, null)
 }
 
-const saveMahjongRoundInfo = (roundInfo: MahjongRoundInfo) => {
-  return api.sendPost(`/api/mahjong/round`, roundInfo)
+const saveMahjongRoundInfo = (gameInfo: MahjongGameInfo) => {
+  return api.sendPost(`/api/mahjong/game`, gameInfo)
 }
 
 const getUserTags = async (userIds: number[]) => {

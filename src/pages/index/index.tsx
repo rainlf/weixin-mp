@@ -25,6 +25,7 @@ const Index = () => {
   const currentUser: UserInfo = useSelector((state: any) => state.currentUser.user)
 
   const [ready, setReady] = useState(false)
+  const [notifyMessage, setNotifyMessage] = useState('芒果🥭 橘子🍊 山药🍒 土豆🥔 芋泥🍑 胡萝卜🥕 大米饭 🍚')
 
   useEffect(() => {
     (async () => {
@@ -49,14 +50,15 @@ const Index = () => {
 
         // 获取全部用户
         await userService.getUserList()
-
-        // Rain test
-        // Taro.navigateTo({
-        //   url: '../mahjong/index'
-        // })
       }
     })();
   }, [token])
+
+  useEffect(() => {
+    if (currentUser?.copperCoin < 0) {
+      setNotifyMessage("😡资产负数了，该还债啦，快去运动啊啊啊😡 😡资产负数了，该还债啦，快去运动啊啊啊😡 😡资产负数了，该还债啦，快去运动啊啊啊😡")
+    }
+  }, [currentUser]);
 
   const isUserInited = (userInfo: UserInfo): boolean => {
     return userInfo != null
@@ -87,11 +89,11 @@ const Index = () => {
     },
     {
       image: mahjongIcon,
-      value: '敲敲麻麻'
+      value: '敲麻'
     },
     {
       image: eggIcon,
-      value: '掼蛋掼蛋🏗️'
+      value: '掼蛋🏗️'
     },
     {
       image: mangoIcon,
@@ -131,7 +133,7 @@ const Index = () => {
       {
         ready &&
         <View className='container'>
-          <AtNoticebar single marquee speed={50}>{'芒果🥭    橘子🍊    山药🍒    土豆🥔    芋泥🍑  胡萝卜🥕  大米饭 🍚'}</AtNoticebar>
+          <AtNoticebar single marquee speed={50}>{notifyMessage}</AtNoticebar>
 
           <View className='userInfo'>
             <View className='avatarWrapper'>
