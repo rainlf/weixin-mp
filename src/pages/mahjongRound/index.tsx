@@ -114,14 +114,14 @@ const GameRoundPage = () => {
 
 
   const handleWinCaseClick = (event: any) => {
-    let tmpWinCaseList = winCaseList.map(x => x.name == event.name ? {...x, click: !x.click,} : {...x, click: false,})
+    const tmpWinCaseList = winCaseList.map(x => x.name == event.name ? {...x, click: !x.click,} : {...x, click: false,})
 
-    // 非自摸一定不杠开
-    // if (!(tmpWinCaseList.filter(x => x.name = WinCaseEnum.MJ_SELF_TOUCH_WIN)[0].click)) {
-    //   console.log('rain x', tmpWinCaseList)
+    // // 非自摸一定不杠开
+    // if (!tmpWinCaseList.filter(x => x.name = WinCaseEnum.MJ_SELF_TOUCH_WIN)[0].click) {
     //   setFanList(fanList.map(x => x.name == FanEnum.MJ_FLOWER_OPEN_FAN ? {...x, click: false} : x))
     // }
 
+    // 没有选择则默认平赢
     if (tmpWinCaseList.every(x => !x.click)) {
       setWinCaseList(initWinCaseList)
     } else {
@@ -376,8 +376,8 @@ const GameRoundPage = () => {
         }
       </View>
       <View className={'title numberSliderTitle'}>
-        <Text>{"基础积分：" + baseFan}</Text>
-        <Text>{"总积分：" + totalFan}</Text>
+        <Text>{"底分（花+1）：" + baseFan}</Text>
+        <Text>{"总分：" + totalFan}</Text>
       </View>
       <View className={'numberSlider'}>
         <AtInputNumber disabledInput type={'number'} min={0} max={20} step={1} value={baseFan}
