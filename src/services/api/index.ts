@@ -2,8 +2,8 @@ import ApiResp = App.ApiResp;
 import store from '../../store'
 import weixinService from "../weixinService";
 
-// const server = 'http://127.0.0.1:8080'
-const server = 'https://mp.guanshantech.com'
+const server = 'http://127.0.0.1:8080'
+// const server = 'https://mp.guanshantech.com'
 
 interface Option {
   method: 'GET' | 'POST' | 'DELETE',

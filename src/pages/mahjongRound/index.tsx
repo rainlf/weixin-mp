@@ -23,7 +23,7 @@ enum WinCaseEnum {
 }
 
 const initWinCaseList: WinCase[] = [
-  {name: WinCaseEnum.MJ_COMMON_WIN, value: "胡牌", click: true},
+  {name: WinCaseEnum.MJ_COMMON_WIN, value: "平赢", click: true},
   {name: WinCaseEnum.MJ_SELF_TOUCH_WIN, value: "自摸", click: false},
   {name: WinCaseEnum.MJ_ONE_PAO_DOUBLE_WIN, value: "一炮双响", click: false},
   {name: WinCaseEnum.MJ_ONE_PAO_TRIPLE_WIN, value: "一炮三响", click: false},
@@ -91,23 +91,12 @@ const GameRoundPage = () => {
   useEffect(() => {
     const initGameUserList = userList
       .filter(user => !playerIdList.includes(user.id))
-      .map(user => (
-        {
-          id: user.id,
-          name: user.nickname,
-        }
-      ))
+      .map(user => ({id: user.id, name: user.nickname,}))
     setGameUserList(initGameUserList)
 
     const initPlayUserList = userList
       .filter(user => playerIdList.includes(user.id))
-      .map(user => (
-        {
-          id: user.id,
-          name: user.nickname,
-          status: 0,
-        }
-      ))
+      .map(user => ({id: user.id, name: user.nickname, status: 0,}))
     setPlayUserList(initPlayUserList)
   }, [userList, playerIdList])
 
@@ -123,27 +112,45 @@ const GameRoundPage = () => {
     setTotalFan(fan)
   }, [baseFan, fanList, winCaseList])
 
-  const handleWinCaseClick = (event: any) => {
-    const currentList = winCaseList.map(x => x.name == event.name ? {
-      ...x,
-      click: !x.click,
-    } : {
-      ...x,
-      click: false,
-    })
 
-    if (currentList.every(x => !x.click)) {
+  const handleWinCaseClick = (event: any) => {
+    let tmpWinCaseList = winCaseList.map(x => x.name == event.name ? {...x, click: !x.click,} : {...x, click: false,})
+
+    // 非自摸一定不杠开
+    // if (!(tmpWinCaseList.filter(x => x.name = WinCaseEnum.MJ_SELF_TOUCH_WIN)[0].click)) {
+    //   console.log('rain x', tmpWinCaseList)
+    //   setFanList(fanList.map(x => x.name == FanEnum.MJ_FLOWER_OPEN_FAN ? {...x, click: false} : x))
+    // }
+
+    if (tmpWinCaseList.every(x => !x.click)) {
       setWinCaseList(initWinCaseList)
     } else {
-      setWinCaseList(currentList)
+      setWinCaseList(tmpWinCaseList)
     }
   }
 
   const handleFanListClick = (event: any) => {
-    setFanList(fanList.map(x => x.name == event.name ? {
-      ...x,
-      click: !x.click,
-    } : x))
+    let fans = fanList.map(x => x.name == event.name ? {...x, click: !x.click,} : x)
+
+    // // 七小对一定门清
+    // if (fans.filter(x => x.name == FanEnum.MJ_SEVEN_PAIR_FAN)[0].click) {
+    //   fans = fans.map(x => x.name == FanEnum.MJ_DOOR_CLEAN_FAN ? {...x, click: true} : x)
+    // }
+    //
+    // // 非门清一定不七小对
+    // if (!fans.filter(x => x.name == FanEnum.MJ_DOOR_CLEAN_FAN)[0].click) {
+    //   fans = fans.map(x => x.name == FanEnum.MJ_SEVEN_PAIR_FAN ? {...x, click: false} : x)
+    // }
+    //
+    // // 杠开一定自摸
+    // if (fans.filter(x => x.name == FanEnum.MJ_FLOWER_OPEN_FAN)[0].click) {
+    //   setWinCaseList(winCaseList.map(x => x.name == WinCaseEnum.MJ_SELF_TOUCH_WIN ? {...x, click: true} : {
+    //     ...x,
+    //     click: false,
+    //   }))
+    // }
+
+    setFanList(fans)
   }
 
   const handleGameUserClick = (event: any) => {
@@ -213,7 +220,7 @@ const GameRoundPage = () => {
     if (selectWinCaseList.length != 1) {
       if (baseFan == 0) {
         Taro.atMessage({
-          'message': "只能选择一种和牌类型哦",
+          'message': "只能选择一种胡牌类型哦",
           'type': 'warning',
         })
         return
@@ -228,7 +235,7 @@ const GameRoundPage = () => {
       loserIds = palyUserList.filter(x => x.status == PlayUserStatus.LOSE).map(x => x.id)
       if (winnerIds.length != 1 || loserIds.length != 1) {
         Taro.atMessage({
-          'message': "胡牌，要1赢1输哦",
+          'message': "平赢，要1赢1输哦",
           'type': 'warning',
         })
         return
@@ -313,7 +320,6 @@ const GameRoundPage = () => {
               {x.name}
             </AtTag>
           )
-
         }
       </View>
       <View className={'title playerTitle'}>
@@ -346,7 +352,7 @@ const GameRoundPage = () => {
         }
       </View>
       <View className={'title'}>
-        <Text>{"和牌"}</Text>
+        <Text>{"胡牌"}</Text>
       </View>
       <View className={'tagList'}>
         {
