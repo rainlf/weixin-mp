@@ -18,15 +18,15 @@ interface WinCase {
 enum WinCaseEnum {
   MJ_COMMON_WIN,
   MJ_SELF_TOUCH_WIN,
-  MJ_ONE_PAO_DOUBLE_WIN,
-  MJ_ONE_PAO_TRIPLE_WIN,
+  // MJ_ONE_PAO_DOUBLE_WIN,
+  // MJ_ONE_PAO_TRIPLE_WIN,
 }
 
 const initWinCaseList: WinCase[] = [
   {name: WinCaseEnum.MJ_COMMON_WIN, value: "平赢", click: true},
   {name: WinCaseEnum.MJ_SELF_TOUCH_WIN, value: "自摸", click: false},
-  {name: WinCaseEnum.MJ_ONE_PAO_DOUBLE_WIN, value: "一炮双响", click: false},
-  {name: WinCaseEnum.MJ_ONE_PAO_TRIPLE_WIN, value: "一炮三响", click: false},
+  // {name: WinCaseEnum.MJ_ONE_PAO_DOUBLE_WIN, value: "一炮双响", click: false},
+  // {name: WinCaseEnum.MJ_ONE_PAO_TRIPLE_WIN, value: "一炮三响", click: false},
 ]
 
 enum FanEnum {
@@ -255,29 +255,29 @@ const GameRoundPage = () => {
       }
     }
 
-    if (selectWinCase.name == WinCaseEnum.MJ_ONE_PAO_DOUBLE_WIN) {
-      winnerIds = palyUserList.filter(x => x.status == PlayUserStatus.WIN).map(x => x.id)
-      loserIds = palyUserList.filter(x => x.status == PlayUserStatus.LOSE).map(x => x.id)
-      if (winnerIds.length != 2 || loserIds.length != 1) {
-        Taro.atMessage({
-          'message': "一炮双响，要2赢1输哦",
-          'type': 'warning',
-        })
-        return
-      }
-    }
-
-    if (selectWinCase.name == WinCaseEnum.MJ_ONE_PAO_TRIPLE_WIN) {
-      winnerIds = palyUserList.filter(x => x.status != PlayUserStatus.LOSE).map(x => x.id)
-      loserIds = palyUserList.filter(x => x.status == PlayUserStatus.LOSE).map(x => x.id)
-      if (winnerIds.length != 3 || loserIds.length != 1) {
-        Taro.atMessage({
-          'message': "一炮三响，要选定1个输家哦",
-          'type': 'warning',
-        })
-        return
-      }
-    }
+    // if (selectWinCase.name == WinCaseEnum.MJ_ONE_PAO_DOUBLE_WIN) {
+    //   winnerIds = palyUserList.filter(x => x.status == PlayUserStatus.WIN).map(x => x.id)
+    //   loserIds = palyUserList.filter(x => x.status == PlayUserStatus.LOSE).map(x => x.id)
+    //   if (winnerIds.length != 2 || loserIds.length != 1) {
+    //     Taro.atMessage({
+    //       'message': "一炮双响，要2赢1输哦",
+    //       'type': 'warning',
+    //     })
+    //     return
+    //   }
+    // }
+    //
+    // if (selectWinCase.name == WinCaseEnum.MJ_ONE_PAO_TRIPLE_WIN) {
+    //   winnerIds = palyUserList.filter(x => x.status != PlayUserStatus.LOSE).map(x => x.id)
+    //   loserIds = palyUserList.filter(x => x.status == PlayUserStatus.LOSE).map(x => x.id)
+    //   if (winnerIds.length != 3 || loserIds.length != 1) {
+    //     Taro.atMessage({
+    //       'message': "一炮三响，要选定1个输家哦",
+    //       'type': 'warning',
+    //     })
+    //     return
+    //   }
+    // }
 
     const roundInfo = {
       recorderId: user.id,
@@ -380,7 +380,7 @@ const GameRoundPage = () => {
         <Text>{"总分：" + totalFan}</Text>
       </View>
       <View className={'numberSlider'}>
-        <AtInputNumber disabledInput type={'number'} min={0} max={20} step={1} value={baseFan}
+        <AtInputNumber type={'number'} min={0} max={20} step={1} value={baseFan}
                        onChange={(num: number) => setBaseFan(num)}/>
       </View>
       <View className={'bottomButton'}>
