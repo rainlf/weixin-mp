@@ -26,6 +26,9 @@
 
 .logItemTagList {
   margin-bottom: 5rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .logItemTag {

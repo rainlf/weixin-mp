@@ -37,11 +37,16 @@ const GameLog = () => {
 
             <View className={'logItemLogInfo'}>
               <View className={'logItemTagList'}>
-                {
-                  log.gameTags.map((x: any) => (
-                    <AtTag className={'logItemTag'} size={'small'} active>{x}</AtTag>
-                  ))
-                }
+                <View>
+                  {
+                    log.gameTags.map((x: any) => (
+                      <AtTag className={'logItemTag'} size={'small'} active>{x}</AtTag>
+                    ))
+                  }
+                </View>
+                <View>
+                  <AtTag className={'logItemTag'} size={'small'} active>{log.createTime}</AtTag>
+                </View>
               </View>
 
               <View className={'logItemDetail'}>
