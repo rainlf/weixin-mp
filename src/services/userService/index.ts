@@ -24,7 +24,7 @@ const uploadUserAvatar = (userId: number, avatar: string): Promise<string> => {
 }
 
 const getUserAvatar = (userId: number): string => {
-  return api.getUrl(`/api/user/getAvatar?userId=${userId}`)
+  return api.getUrl(`/api/auth/getAvatar?userId=${userId}`)
 }
 
 export default {

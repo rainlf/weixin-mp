@@ -46,8 +46,14 @@ const sendDelete = (api: string, data: any): Promise<any> => {
 
 // 封装UploadFile
 const uploadFile = (api: string, filePath: string, formData: {}): Promise<any> => {
+  const token = store.getState().currentUser.token
+
   const option: {} = {
     url: server + api,
+    header: {
+      'content-type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`
+    },
     name: 'file',
     filePath,
     formData,

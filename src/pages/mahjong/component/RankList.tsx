@@ -12,7 +12,7 @@ import copperCrownIcon from "../../../assets/images/铜王冠.png";
 import heartBrokenIcon from "../../../assets/images/403-broken-heart.png";
 import UserInfo = App.UserInfo;
 import UserTag = App.MahjongUserTag;
-import userService from 'src/services/userService';
+import userService from '../../../services/userService';
 
 
 const RankList = () => {

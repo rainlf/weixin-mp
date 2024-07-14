@@ -63,9 +63,7 @@ const MainPage = () => {
   const isUserInited = (userInfo: UserInfo): boolean => {
     return userInfo != null
       && userInfo.nickname != null
-      && userInfo.avatar != null
       && userInfo.nickname.length > 0
-      && userInfo.avatar.length > 0
   }
 
   const handlUpdateButtonClick = () => {
@@ -159,7 +157,7 @@ const MainPage = () => {
             </View>
 
             <view className="updateButtonWrapper" onClick={handlUpdateButtonClick}>
-              <AtIcon value='chevron-right' size='10' color="gray"></AtIcon>
+              <AtIcon value='chevron-right' size='20' color="gray"></AtIcon>
             </view>
           </View>
 

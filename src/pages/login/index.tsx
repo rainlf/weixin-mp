@@ -76,6 +76,7 @@ function LoginPage() {
     }
     const userInfo:UserInfo = await userService.updateCurrentUser(nickname, avatarUrl);
     await userService.uploadUserAvatar(userInfo.id, avatarUrl);
+    setAvatarUrl(userService.getUserAvatar(currentUser.id))
 
     Taro.redirectTo({
       url: '../index/index',
@@ -94,7 +95,7 @@ function LoginPage() {
       <View className='loginContainer'>
         <View className="userinfo">
           <Button className="avatarWrapper" open-type="chooseAvatar" onChooseAvatar={handleChooseAvatar}>
-            <AtAvatar className="avatar" image={userService.getUserAvatar(currentUser.id)}></AtAvatar>
+            <AtAvatar className="avatar" image={avatarUrl}></AtAvatar>
           </Button>
           <View className="nicknameWrapper">
             <Text className="nicknameLabel">昵称</Text>
