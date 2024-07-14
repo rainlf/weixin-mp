@@ -19,8 +19,18 @@ const updateCurrentUser = (nickname: string, avatar: string): Promise<UserInfo> 
   return api.sendPost(`/api/user/current?nickname=${nickname}&avatar=${avatar}`, null)
 }
 
+const uploadUserAvatar = (userId: number, avatar: string): Promise<string> => {
+  return api.uploadFile('/api/user/uploadAvatar', avatar, {userId})
+}
+
+const getUserAvatar = (userId: number): string => {
+  return api.getUrl(`/api/user/getAvatar?userId=${userId}`)
+}
+
 export default {
   getUserList,
   getCurrentUser,
   updateCurrentUser,
+  uploadUserAvatar,
+  getUserAvatar,
 }

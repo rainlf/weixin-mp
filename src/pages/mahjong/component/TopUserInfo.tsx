@@ -6,6 +6,7 @@ import {AtAvatar} from "taro-ui";
 import coinIcon from "../../../assets/images/铜币.png"
 import {useEffect, useState} from "react";
 import UserInfo = App.UserInfo;
+import userService from "../../../services/userService";
 
 export enum TopUserType {
   TOP,
@@ -52,7 +53,7 @@ const TopUserInfo = (props: TopUserInfoProps) => {
         <Text>{topUser.title}</Text>
       </View>
       <View className='avatar'>
-        <AtAvatar size={'small'} image={topUser.avatar}></AtAvatar>
+        <AtAvatar size={'small'} image={userService.getUserAvatar(topUser.id)}></AtAvatar>
       </View>
       <View className='detail'>
         <View className={'detailContent'}>

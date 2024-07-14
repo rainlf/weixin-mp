@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import {AtAvatar, AtTag} from "taro-ui";
 import {useEffect, useState} from "react";
 import MahjongLog = App.MahjongLog;
+import userService from 'src/services/userService';
 
 const GameLog = () => {
   const logs: MahjongLog[] = useSelector((state: any) => state.mahjong.logs)
@@ -32,7 +33,7 @@ const GameLog = () => {
         logList?.map(log =>
           <View className={'logItem'}>
             <View className={'logItemAvatar'}>
-              <AtAvatar size={'small'} image={log.winnerAvatar}></AtAvatar>
+              <AtAvatar size={'small'} image={userService.getUserAvatar(log.winnerAvatar.userId)}></AtAvatar>
             </View>
 
             <View className={'logItemLogInfo'}>

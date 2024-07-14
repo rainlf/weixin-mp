@@ -137,7 +137,7 @@ const MainPage = () => {
 
           <View className='userInfo'>
             <View className='avatarWrapper'>
-              <AtAvatar size="large" image={currentUser.avatar}></AtAvatar>
+              <AtAvatar size="large" image={userService.getUserAvatar(currentUser.id)}></AtAvatar>
             </View>
 
             <View className={'detailWrapperWrapper'}>

@@ -48,7 +48,7 @@ function LoginPage() {
   }
 
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     console.log(avatarUrl)
     if (avatarUrl == null || avatarUrl == defaultAvatar || avatarUrl == '') {
       Taro.showToast({
@@ -74,18 +74,18 @@ function LoginPage() {
       })
       return
     }
-    userService.updateCurrentUser(nickname, avatarUrl)
-      .then(() => {
-        Taro.redirectTo({
-          url: '../index/index',
-          success: () => {
-            Taro.atMessage({
-              'message': update ? "更新成功" : "登录成功",
-              'type': 'success',
-            })
-          }
+    const userInfo:UserInfo = await userService.updateCurrentUser(nickname, avatarUrl);
+    await userService.uploadUserAvatar(userInfo.id, avatarUrl);
+
+    Taro.redirectTo({
+      url: '../index/index',
+      success: () => {
+        Taro.atMessage({
+          'message': update ? "更新成功" : "登录成功",
+          'type': 'success',
         })
-      })
+      }
+    })
   }
 
   return (
@@ -94,7 +94,7 @@ function LoginPage() {
       <View className='loginContainer'>
         <View className="userinfo">
           <Button className="avatarWrapper" open-type="chooseAvatar" onChooseAvatar={handleChooseAvatar}>
-            <AtAvatar className="avatar" image={avatarUrl}></AtAvatar>
+            <AtAvatar className="avatar" image={userService.getUserAvatar(currentUser.id)}></AtAvatar>
           </Button>
           <View className="nicknameWrapper">
             <Text className="nicknameLabel">昵称</Text>

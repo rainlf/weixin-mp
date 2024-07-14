@@ -12,6 +12,7 @@ import copperCrownIcon from "../../../assets/images/铜王冠.png";
 import heartBrokenIcon from "../../../assets/images/403-broken-heart.png";
 import UserInfo = App.UserInfo;
 import UserTag = App.MahjongUserTag;
+import userService from 'src/services/userService';
 
 
 const RankList = () => {
@@ -65,7 +66,7 @@ const RankList = () => {
         rankList?.map(rankItem =>
           <View className={'ranKItem'}>
             <View className='avatar'>
-              <AtAvatar className={'avatarImg'} size={'small'} image={rankItem.avatar}></AtAvatar>
+              <AtAvatar className={'avatarImg'} size={'small'} image={userService.getUserAvatar(rankItem.id)}></AtAvatar>
             </View>
             <View className='detail'>
               <View className={'nickname'}>

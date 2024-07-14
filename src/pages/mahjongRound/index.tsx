@@ -380,7 +380,7 @@ const GameRoundPage = () => {
         <Text>{"总分：" + totalFan}</Text>
       </View>
       <View className={'numberSlider'}>
-        <AtInputNumber type={'number'} min={0} max={20} step={1} value={baseFan}
+        <AtInputNumber type={'number'} min={0} max={999} step={1} value={baseFan}
                        onChange={(num: number) => setBaseFan(num)}/>
       </View>
       <View className={'bottomButton'}>

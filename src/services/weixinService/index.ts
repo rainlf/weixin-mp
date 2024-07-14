@@ -6,9 +6,19 @@ const wxRequest = (option: {}): Promise<any> => {
       {
         ...option,
         success: ((resp: any) => resolve(resp)),
-        fail: ((err: any) =>  reject(err)),
+        fail: ((err: any) => reject(err)),
       }
     )
+  })
+}
+
+const wxUploadFile = (option: {}): Promise<any> => {
+  return new Promise((resolve, reject) => {
+    wx.uploadFile({
+      ...option,
+      success: ((resp: any) => resolve(resp)),
+      fail: ((err: any) => reject(err)),
+    })
   })
 }
 
@@ -29,4 +39,5 @@ export default {
   wxRequest,
   wxLogin,
   wxShowToast,
+  wxUploadFile,
 }

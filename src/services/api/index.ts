@@ -2,13 +2,17 @@ import ApiResp = App.ApiResp;
 import store from '../../store'
 import weixinService from "../weixinService";
 
-// const server = 'http://127.0.0.1:8080'
-const server = 'https://mp.guanshantech.com'
+const server = 'http://127.0.0.1:8080'
+// const server = 'https://mp.guanshantech.com'
 
 interface Option {
   method: 'GET' | 'POST' | 'DELETE',
   url: string,
   data?: any | undefined,
+}
+
+const getUrl = (api: string): string => {
+  return server + api;
 }
 
 // 封装GET
@@ -38,6 +42,18 @@ const sendDelete = (api: string, data: any): Promise<any> => {
     data,
   }
   return request(option)
+}
+
+// 封装UploadFile
+const uploadFile = (api: string, filePath: string, formData: {}): Promise<any> => {
+  const option: {} = {
+    url: server + api,
+    name: 'file',
+    filePath,
+    formData,
+  }
+
+  return weixinService.wxUploadFile(option)
 }
 
 // 通信切面处理
@@ -72,4 +88,6 @@ export default {
   sendGet,
   sendPost,
   sendDelete,
+  uploadFile,
+  getUrl,
 }
